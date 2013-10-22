@@ -9,13 +9,25 @@ source File.expand_path("../buy_policy_1.yml",__FILE__)
 end
 
 def generate_price_buy_signal(price_array,buy_policy_class)
-	#print price_array.to_s
-	#puts price_array[0].to_f
-	#puts price_array[3].to_f
-    #puts (price_array[0].to_f < price_array[3].to_f)
 	puts (buy_policy_class.price.price_open_bigger_close) && (price_array[0].to_f > price_array[3].to_f)
-
 end
+
+def generate_macd_buy_signal(macd_array,buy_policy_class)
+	puts (buy_policy_class.price.price_open_bigger_close) && (price_array[0].to_f > price_array[3].to_f)
+end
+
+def generate_low_price_buy_signal(low_price_array,buy_policy_class)
+	puts (buy_policy_class.price.price_open_bigger_close) && (price_array[0].to_f > price_array[3].to_f)
+end
+
+def generate_high_price_buy_signal(high_price_array,buy_policy_class)
+	puts (buy_policy_class.price.price_open_bigger_close) && (price_array[0].to_f > price_array[3].to_f)
+end
+
+def generate_volume_buy_signal(volume_array,buy_policy_class)
+	puts (buy_policy_class.price.price_open_bigger_close) && (price_array[0].to_f > price_array[3].to_f)
+end
+
 
 
 

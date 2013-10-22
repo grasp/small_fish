@@ -18,7 +18,9 @@ def read_data_process_file(symbol)
     macd_hash[date]=result_array[2].gsub(/\[|\]|\"/,"").split(",")
     low_price_hash[date]=result_array[3].gsub(/\[|\]|\"/,"").split(",")
     high_price_hash[date]=result_array[4].gsub(/\[|\]|\"/,"").split(",")
-    volume_hash=result_array[5].gsub(/\[|\]|\"/,"").split(",")
+    volume_hash[date]=result_array[5].gsub(/\[|\]|\"/,"").split(",")
+
+   # puts volume_hash
 end
  end
  [price_hash,macd_hash,low_price_hash,high_price_hash,volume_hash]
