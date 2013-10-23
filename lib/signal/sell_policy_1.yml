@@ -1,5 +1,8 @@
-price:
-  open_bigger_close: false
+#price2:
+  #open_bigger_close: false
   
 macd:
   macd5_bigger_macd10: false
+  
+last_macd:
+   macd5_bigger_macd10: true
