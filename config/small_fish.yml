@@ -41,3 +41,9 @@ volume_60_day: 60
 volume_100_day: 100
 volume_120_day: 120
 volume_120_day: 200
+
+#一买和一卖策略
+buy_sell_number: one_buy_one_sell
+
+#止损
+maxim_lost_percent: 7

@@ -2,10 +2,7 @@ require 'settingslogic'
 require File.expand_path("../read_data_process.rb",__FILE__)
 
 class BuySettings < Settingslogic
-
 source File.expand_path("../buy_policy_1.yml",__FILE__)
- # source File.expand_path("../buy_policy_1.yml",__FILE__)
-
 end
 
 class SellSettings < Settingslogic
@@ -135,6 +132,89 @@ def generate_volume_buy_signal(volume_array,bpc)
 end
 
 
+
+#to judge the buy or sell_singal based on back day
+#0->price hash,1->macd_hash,2->low price hash,3->high price hash,4->volume hash
+
+def generate_buy_signal(processed_data,back_day,buy_policy_class)
+     
+     buy_signal=true
+     price_hash=processed_data[0]
+     macd_hash=processed_data[1]
+     low_price_hash=processed_data[2]
+     high_price_hash=processed_data[3]
+     volume_hash=processed_data[4]
+
+     full_price_array=price_hash.to_a
+
+     date=full_price_array[back_day][0]
+     #puts "first date=#{date},index=#{index}"
+     price_array=full_price_array[back_day][1]
+
+     macd_array=macd_hash[date]
+     low_price_array=low_price_hash[date]
+     high_price_array=high_price_hash[date]
+     volume_array=volume_hash[date]
+     #puts "last price =#{price_array[27]}"
+     last_date=full_price_array[back_day-1][0]
+     last_price=full_price_array[back_day-1][1]
+     last_macd_array=macd_hash[last_date]
+     last_low_price_array=low_price_hash[last_date]
+     last_high_price_array=high_price_hash[last_date]
+     last_volume_array=volume_hash[last_date]
+
+     price_signal = generate_price_buy_signal(price_array,buy_policy_class)
+     macd_signal = generate_macd_buy_signal(macd_array,buy_policy_class)
+     last_macd_signal = generate_last_macd_buy_signal(last_macd_array,buy_policy_class)
+     low_price_signal = generate_low_price_buy_signal(low_price_array,price_array,buy_policy_class)
+     high_price_signal = generate_high_price_buy_signal(high_price_array,price_array,buy_policy_class)
+     volume_signal = generate_volume_buy_signal(volume_array,buy_policy_class)
+    
+   
+     buy_signal=(price_signal && macd_signal && last_macd_signal && low_price_signal && high_price_signal && volume_signal)
+      # puts "macd_singal=#{macd_signal},last_macd_signal=#{last_macd_signal},buy_signal=#{buy_signal}"
+     return buy_signal
+end
+
+#for generate signal by sell policy class
+def generate_sell_signal(processed_data,back_day,sell_policy_class)
+     
+     sell_signal=true
+     price_hash=processed_data[0]
+     macd_hash=processed_data[1]
+     low_price_hash=processed_data[2]
+     high_price_hash=processed_data[3]
+     volume_hash=processed_data[4]
+
+     full_price_array=price_hash.to_a
+
+     date=full_price_array[back_day][0]
+     #puts "first date=#{date},index=#{index}"
+     price_array=full_price_array[back_day][1]
+
+     macd_array=macd_hash[date]
+     low_price_array=low_price_hash[date]
+     high_price_array=high_price_hash[date]
+     volume_array=volume_hash[date]
+        #puts "last price =#{price_array[27]}"
+     last_date=full_price_array[back_day-1][0]
+     last_price=full_price_array[back_day-1][1]
+     last_macd_array=macd_hash[last_date]
+     last_low_price_array=low_price_hash[last_date]
+     last_high_price_array=high_price_hash[last_date]
+     last_volume_array=volume_hash[last_date]
+
+     price_signal = generate_price_buy_signal(price_array,sell_policy_class)
+     macd_signal = generate_macd_buy_signal(macd_array,sell_policy_class)
+     last_macd_signal = generate_last_macd_buy_signal(last_macd_array,sell_policy_class)
+     low_price_signal = generate_low_price_buy_signal(low_price_array,price_array,sell_policy_class)
+     high_price_signal = generate_high_price_buy_signal(high_price_array,price_array,sell_policy_class)
+     volume_signal = generate_volume_buy_signal(volume_array,sell_policy_class)
+    
+     sell_signal=price_signal && macd_signal && last_macd_signal && low_price_signal && high_price_signal && volume_signal
+        
+     return sell_signal
+end
 
 
 if $0==__FILE__
