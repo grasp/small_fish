@@ -1,5 +1,6 @@
 
 require File.expand_path("../macd_history.rb",__FILE__)
+
 require File.expand_path("../low_high_price_history.rb",__FILE__)
 require File.expand_path("../volume_history.rb",__FILE__)
 
@@ -7,7 +8,7 @@ def save_analysis_result(symbol)
 
     file_path=File.expand_path("../../../resources/analysis_result/#{symbol}.txt",__FILE__)
     #analysis_result_file=File.new("#{symbol}.txt","w+")
-    puts file_path
+    #puts file_path
     raw_hash=get_raw_data_from_file(symbol)
     macd_result=generate_one_stock_macd(raw_hash)
     price_result=low_high_price_analysis(raw_hash)
@@ -18,7 +19,6 @@ def save_analysis_result(symbol)
     high_price_hash=price_result[1]
 
     volume_hash=volume_analysis(raw_hash)
-
 
     analysis_file=File.new(file_path,"w+")
     result_macd_hash.each do |date,macd_array|

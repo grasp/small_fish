@@ -12,7 +12,7 @@ def generate_one_stock_macd(raw_hash)
    price_hash=Hash.new
 
 
-   [1,2,3,4,5,10,20,30,60,100,120].each do |i|
+   [1,2,3,4,5,10,20,30,60,100,120,200].each do |i|
      macd_day_array<<AppSettings.send("macd_#{i}_day")
    end
 
@@ -29,14 +29,24 @@ def generate_one_stock_macd(raw_hash)
    sum=0
    #算术求和
     real_day_count=0
+    sigmal_count=0
    	macd_day.downto(1).each do |j|
+      sigmal_count+=j
    		next if daily_k_index+j>raw_array.size-1#忽略
    		new_index=daily_k_index+j
-        sum+=raw_array[daily_k_index+j][1][3].to_f
-        real_day_count+=1
+        high=raw_array[daily_k_index+j][1][1].to_f
+        low=raw_array[daily_k_index+j][1][2].to_f
+        close=raw_array[daily_k_index+j][1][3].to_f
+      
+      sum+=close
+       # sum+=(((high+low+2*close)/4).to_f.round(3)*j)
+       #sum+=close*j  #指数平均下均值，让越靠前的价格权重越大
+       real_day_count+=1
+        
    	end  #end of macd_day sum  
 
-   	average=(sum.to_f/real_day_count.to_f).round(2)
+   	#average=((sum.to_f)/sigmal_count).round(2)
+    average=((sum.to_f)/real_day_count).round(2)
    	macd_array<<average
  
    	end #end of one of macd day

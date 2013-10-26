@@ -13,7 +13,9 @@ def get_raw_data_from_file(symbol)
   open(stock_file_path).each do |line|
    
  	daily_data = line.split(",")
- 	next if daily_data[2].nil?
+ 	
+ 	#成交量为0的我们忽略不计
+ 	next if (daily_data[2].nil? ||daily_data[6].to_f==0)
  	data_hash[daily_data[1]]=[daily_data[2],daily_data[3],daily_data[4],daily_data[5],daily_data[6],daily_data[7].strip]
  end
 data_hash

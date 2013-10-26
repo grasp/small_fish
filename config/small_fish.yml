@@ -14,7 +14,7 @@ macd_30_day: 30
 macd_60_day: 60
 macd_100_day: 100
 macd_120_day: 120
-macd_120_day: 200
+macd_200_day: 200
 
 price_1_day: 1
 price_2_day: 2
