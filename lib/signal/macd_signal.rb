@@ -94,10 +94,13 @@ end
 
 
 def generate_signal_hash_for_save_file(symbol)
-
+     #用于保存的Hash
 	 save_hash={}
+
+     #第一次数据分析以后的数据载入
      processed_data_array=read_data_process_file(symbol)
 
+     #获取完成的价格hash
      price_hash=processed_data_array[0]
      full_price_array=price_hash.to_a
 
@@ -111,8 +114,17 @@ def generate_signal_hash_for_save_file(symbol)
         signal_hash=judge_signal(full_macd_array,index)
         save_hash[date]=signal_hash
      end
-#puts save_hash
+  signal_file_path=File.expand_path("../../../resources/signal/#{symbol}.txt",__FILE__)
+  #puts signal_file_path
+  signal_file=File.new(signal_file_path,"w+")
 
+  save_hash.each do |date,s_hash|
+    signal_file<<date+"\n"
+    signal_file<<s_hash.values
+  
+  end
+  #puts save_hash
+  signal_file.close
 end
 
 
