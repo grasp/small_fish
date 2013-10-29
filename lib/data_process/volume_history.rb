@@ -1,5 +1,5 @@
 
-require File.expand_path("../raw_process_daily_k.rb",__FILE__)
+require File.expand_path("../read_daily_k.rb",__FILE__)
 require File.expand_path("../../../init/config_load.rb",__FILE__)
 
 #依次为开盘，最高，最低，收盘，成交量
@@ -12,8 +12,7 @@ def volume_analysis(raw_hash)
    day_array=[] #存储
   
 
-   volume_hash=Hash.new
- 
+   volume_hash=Hash.new 
 
    [1,2,3,4,5,10,20,30,60,100,120].each do |i|
      day_array<<AppSettings.send("volume_#{i}_day")

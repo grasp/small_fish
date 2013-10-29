@@ -9,11 +9,12 @@ def read_data_process_file(symbol)
   low_price_hash={}
   high_price_hash={}
   volume_hash={}
+  
  File.open(processed_file,"r").each do |line|
    
  	result_array=line.strip.split("#")
  	if  result_array.size>4
- 	date=result_array[0]
+   	date=result_array[0]
     price_hash[date]=result_array[1].gsub(/\[|\]|\"/,"").split(",")
     macd_hash[date]=result_array[2].gsub(/\[|\]|\"/,"").split(",")
     low_price_hash[date]=result_array[3].gsub(/\[|\]|\"/,"").split(",")

@@ -3,7 +3,7 @@ require File.expand_path("../../../init/config_load.rb",__FILE__)
 
 #判断后退几天ma 信号
 ##MACD 1,2,3,4,5,10,20,30,60,100,120,200
-def judge_signal(macd_array,back_day)
+def judge_macd_signal(macd_array,back_day)
 
 	t_ma_array=[]
 	macd_array[back_day][1].each {|i| t_ma_array<<i.to_f}#当天的macd数组
@@ -88,6 +88,13 @@ def judge_signal(macd_array,back_day)
     signal_hash["t_ma120_bigger_y_ma120"]=t_ma_array[10]   > y_ma_array[10]
     signal_hash["t_ma200_bigger_y_ma200"]=t_ma_array[11]   > y_ma_array[11]
 
+    signal_hash_keys=signal_hash.keys
+    signal_hash_values=signal_hash.values
+
+    signal_hash_keys.each_index do |index|
+  raise unless   signal_hash[signal_hash_keys[index]]==signal_hash_values[index]
+    end
+
     return signal_hash
 
 end
@@ -111,16 +118,21 @@ def generate_signal_hash_for_save_file(symbol)
      full_macd_array.each_index do |index|
        	date=full_macd_array[index][0]
         next if index==total_size-1
-        signal_hash=judge_signal(full_macd_array,index)
+        signal_hash=judge_macd_signal(full_macd_array,index)
         save_hash[date]=signal_hash
      end
+
   signal_file_path=File.expand_path("../../../resources/signal/#{symbol}.txt",__FILE__)
+  first_line_flag=true
   #puts signal_file_path
   signal_file=File.new(signal_file_path,"w+")
 
   save_hash.each do |date,s_hash|
-    signal_file<<date+"\n"
-    signal_file<<s_hash.values
+    signal_file<< s_hash.keys.to_s+"\n"   if first_line_flag==true
+    signal_file<<date
+    signal_file<<s_hash.values.to_s+"\n"
+
+    first_line_flag=false
   
   end
   #puts save_hash
@@ -129,5 +141,7 @@ end
 
 
 if $0==__FILE__
+
  generate_signal_hash_for_save_file("000009.sz")
+
 end

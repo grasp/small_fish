@@ -1,5 +1,5 @@
 
-require File.expand_path("../raw_process_daily_k.rb",__FILE__)
+require File.expand_path("../read_daily_k.rb",__FILE__)
 require File.expand_path("../../../init/config_load.rb",__FILE__)
 
 #依次为开盘，最高，最低，收盘，成交量
