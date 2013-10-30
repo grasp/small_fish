@@ -1,6 +1,7 @@
 
 require File.expand_path("../split_signal.rb",__FILE__)
 require File.expand_path("../get_zuhe.rb",__FILE__)
+require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__FILE__)
 def guess_policy(symbol,will_key)
 
 	result_path=File.expand_path("../../../resources/policy/#{symbol}.txt",__FILE__)
@@ -91,5 +92,11 @@ def guess_policy(symbol,will_key)
 end
 
 if $0==__FILE__
-    guess_policy("000009.sz","up_1_day")
+   # guess_policy("000009.sz","up_1_day")
+     table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
+
+  stock_list=load_stock_list_file_into_redis(table_file)
+  stock_list.keys[0..100].each do |stockid|
+   guess_policy(stockid,"up_1_day")
+end
 end

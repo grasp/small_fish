@@ -1,5 +1,6 @@
 require File.expand_path("../read_data_process.rb",__FILE__)
 require File.expand_path("../../../init/config_load.rb",__FILE__)
+require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__FILE__)
 
 #判断后退几天ma 信号
 ##MACD 1,2,3,4,5,10,20,30,60,100,120,200
@@ -142,6 +143,17 @@ end
 
 if $0==__FILE__
 
- generate_signal_hash_for_save_file("000009.sz")
+# generate_signal_hash_for_save_file("000009.sz")
+#generate_signal_hash_for_save_file("000010.sz")
 
+  #save_analysis_result("000009.sz")
+
+      #This file is search from TongHuaShun software installed folder
+  table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
+
+  stock_list=load_stock_list_file_into_redis(table_file)
+
+    stock_list.keys[0..100].each do |stockid|
+    generate_signal_hash_for_save_file(stockid)
+end
 end
