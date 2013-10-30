@@ -18,4 +18,7 @@ tmp
 resources/history_daily_data/*.txt
 resources/snalysis_result/*.txt
 resources/redis-win32/*.rdb
+resources/policy/*.txt
+resources/signal/*.txt
+
 

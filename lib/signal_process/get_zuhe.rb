@@ -1,27 +1,24 @@
-def get_all_possible_zuhe
+def get_all_possible_zuhe1(ori_array_size)
 
-count=0
-zuhe=(1..100).to_a
+zuhe=(0..(ori_array_size-1)).to_a
 
-size=zuhe.size
+index_array=[]
 
-1.upto(zuhe.size).each do |i|
-	j=size-i
-	j.downto(0).each do |k|
-     #puts zuhe[k,i]
-     count+=1
+zuhe.each_index do |index|
+	index_array<<[index]
 end
-end
-puts "count=#{count}"
+#print index_array
+return index_array
 
 end
 
-def get_all_possible_zuhe2(ori_array)
+def get_all_possible_zuhe2(ori_array_size)
 
 
-   iter_array=[0,1]
+   iter_array=(0..(ori_array_size-1)).to_a
+  
    possible_zuhe=[]
-   total_size=ori_array.size
+   total_size=ori_array_size
 
 iter_array.each do |cycle|
  iter_array[cycle].upto(total_size-1).each do |i|
@@ -38,5 +35,5 @@ possible_zuhe
 end
 
 if $0==__FILE__
-  get_all_possible_zuhe2((1..100).to_a)
+ get_all_possible_zuhe1(100)
 end

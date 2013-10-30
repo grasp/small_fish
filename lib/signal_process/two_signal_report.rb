@@ -22,23 +22,33 @@ def guess_policy(symbol,will_key)
 	price_hash=read_daily_k_file(symbol)
 
 	#产生所有的组合
-	index_array=get_all_possible_zuhe1(signal_keys.size)
-
+	index_array=get_all_possible_zuhe2(signal_keys.size)
+ 
+    puts "index array size=#{index_array.size}"
     #生成的报告Hash
 	report_hash=Hash.new
-    report_key=""
-
+    report_key=[]
+  index_count=0
  #统计每个组合的输赢次数
  index_array.each do |one_zuhe|
+
+  index_count+=1
+ 	puts "#{index_count}" if (index_count % 100)==0
  	#先统计赢的
  	win_signal_array.each do |win_signal|
-
+ 	report_key=[]
  	#首先产生组合键值
- 	report_key=one_zuhe.to_s
- 	value_compo=""
+ 	report_key<<one_zuhe
+
+ 	#value_compo=""
     #增加值作为键值
-	one_zuhe.each { |eachindex| value_compo+=win_signal[eachindex]}
-    report_key+=value_compo
+	one_zuhe.each do |eachindex| 
+		#puts "eachindex=#{eachindex}"
+		#puts win_signal[eachindex]
+		report_key<<win_signal[eachindex]
+	end
+    #report_key+=value_compo
+   # report_key<<value_compo
     report_hash[report_key]=[0,0,0,0,0] unless report_hash.has_key?(report_key)
     report_hash[report_key][0]+=1
     report_hash[report_key][1]+=1
@@ -46,14 +56,15 @@ def guess_policy(symbol,will_key)
 
     #再统计输的
     #先统计赢的
- 	win_lost_array.each do |win_signal|
-
+ 	win_lost_array.each do |win_lost|
+    report_key=[]
  	#首先产生组合键值
- 	report_key=one_zuhe.to_s
- 	value_compo=""
+ 	#report_key=one_zuhe.to_s
+ 	report_key<<one_zuhe
+ 	#value_compo=""
     #增加值作为键值
-	one_zuhe.each { |eachindex| value_compo+=win_signal[eachindex]}
-    report_key+=value_compo
+	one_zuhe.each { |eachindex| report_key<<win_lost[eachindex]}
+   # report_key+=value_compo
     report_hash[report_key]=[0,0,0,0,0] unless report_hash.has_key?(report_key)
     report_hash[report_key][0]+=1
     report_hash[report_key][2]+=1
@@ -69,10 +80,10 @@ def guess_policy(symbol,will_key)
 
  report_hash.sort_by {|_key,_value| _value[3].to_i}.each do |key,value|
   #  report_hash.sort_by {|a1,a2| a2[1][1].to_i <=> a1[1][1].to_i}.each do |key,value|
-		
+	#	print "key=#{key[0]}"+"\n"
 	#	value[3]=cal_per(value[1],value[2])
 	#	value[4]=cal_per(value[2],value[1])
-		policy_report<<key.to_s+"#{signal_keys[key.match(/\d+/).to_s.to_i]}"+"#"+value.to_s+"\n"
+		policy_report<<key.to_s+"#{signal_keys[key[0][0]]}"+"#{signal_keys[key[0][1]]}"+"#"+value.to_s+"\n"
 	end
 
     policy_report.close

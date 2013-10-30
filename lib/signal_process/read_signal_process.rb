@@ -1,4 +1,6 @@
 
+
+
 def read_signal_process(symbol)
 
 	signal_array=[]

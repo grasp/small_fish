@@ -1,3 +1,3 @@
 git add .
 git commit -a -m "update on %date:~0,10% -%time:~0,20%"
-git push  http://grasp@github.com/grasp/small_fish.git master
+git push  https://grasp@github.com/grasp/small_fish.git master
