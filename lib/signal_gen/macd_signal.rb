@@ -7,7 +7,9 @@ require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__
 def judge_macd_signal(macd_array,back_day)
 
 	t_ma_array=[]
+
 	macd_array[back_day][1].each {|i| t_ma_array<<i.to_f}#当天的macd数组
+  
 	y_ma_array=[]
 	macd_array[back_day+1][1].each {|i| y_ma_array<<i.to_f}#上一天的macd数组
 
@@ -103,7 +105,7 @@ end
 
 def generate_signal_hash_for_save_file(symbol)
      #用于保存的Hash
-	 save_hash={}
+	  save_hash={}
 
      #第一次数据分析以后的数据载入
      processed_data_array=read_data_process_file(symbol)

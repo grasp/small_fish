@@ -4,7 +4,7 @@ require File.expand_path("../get_zuhe.rb",__FILE__)
 require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__FILE__)
 def guess_policy(symbol,will_key)
 
-	result_path=File.expand_path("../../../resources/policy/two/#{symbol}.txt",__FILE__)
+	result_path=File.expand_path("../../../resources/policy/three/#{symbol}.txt",__FILE__)
    # puts result_path
 	policy_report  =File.new(result_path,"w+")
 
@@ -23,7 +23,7 @@ def guess_policy(symbol,will_key)
 	price_hash=read_daily_k_file(symbol)
 
 	#产生所有的组合
-	index_array=get_all_possible_zuhe2(signal_keys.size)
+	index_array=get_all_possible_zuhe3(signal_keys.size)
  
     puts "index array size=#{index_array.size}"
     #生成的报告Hash
@@ -34,8 +34,7 @@ def guess_policy(symbol,will_key)
  index_array.each do |one_zuhe|
 
   index_count+=1
-  total_occur=0
- 	puts "#{index_count}" if (index_count % 100)==0
+ 	puts "#{index_count}" if (index_count % 1000)==0
  	#先统计赢的
  	win_signal_array.each do |win_signal|
  	report_key=[]
@@ -51,15 +50,9 @@ def guess_policy(symbol,will_key)
 	end
     #report_key+=value_compo
    # report_key<<value_compo
-   unless report_hash.has_key?(report_key)
-    report_hash[report_key]=[0,0,0,0,0] 
-     total_occur=1
-   else
-     total_occur+=1
-    end
-    report_hash[report_key][0]=total_occur
+    report_hash[report_key]=[0,0,0,0,0] unless report_hash.has_key?(report_key)
+    report_hash[report_key][0]+=1
     report_hash[report_key][1]+=1
-    #report_hash[report_key][2]+=1
     end
 
     #再统计输的
@@ -73,14 +66,8 @@ def guess_policy(symbol,will_key)
     #增加值作为键值
 	one_zuhe.each { |eachindex| report_key<<win_lost[eachindex]}
    # report_key+=value_compo
-  unless report_hash.has_key?(report_key)
-    report_hash[report_key]=[0,0,0,0,0] 
-    total_occur=1
-  else
-    total_occur+=1
-  end
-    report_hash[report_key][0]=total_occur
-    #report_hash[report_key][1]+=1
+    report_hash[report_key]=[0,0,0,0,0] unless report_hash.has_key?(report_key)
+    report_hash[report_key][0]+=1
     report_hash[report_key][2]+=1
     end
 
@@ -106,9 +93,7 @@ end
 
 if $0==__FILE__
    start=Time.now
-   #guess_policy("000009.sz","up_1_day")
-  guess_policy("000009.sz","up_10%_after_3_day")
-
+   guess_policy("000009.sz","up_1_day")
    # table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
    # stock_list=load_stock_list_file_into_redis(table_file)
    # stock_list.keys[0..100].each do |stockid|

@@ -34,6 +34,8 @@ puts possible_zuhe.size
 possible_zuhe
 end
 
+
+
 def get_all_possible_zuhe3(ori_array_size)
 
 
@@ -56,7 +58,10 @@ puts possible_zuhe.size
 possible_zuhe
 end
 
+
 if $0==__FILE__
- a=get_all_possible_zuhe3(69)
- puts a.size*8
+  start=Time.now
+ a=get_all_possible_zuhe3(150)
+ puts a.size*4
+ puts "cost time=#{Time.now-start}"
 end

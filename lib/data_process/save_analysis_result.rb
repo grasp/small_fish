@@ -37,15 +37,15 @@ end
 
 
 if $0==__FILE__
-	#save_analysis_result("000009.sz")
+	save_analysis_result("000009.sz")
 
       #This file is search from TongHuaShun software installed folder
-  table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
-  assert(File.exist?(table_file),"#{table_file} not exist!")
+  #table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
+ # assert(File.exist?(table_file),"#{table_file} not exist!")
 
-  stock_list=load_stock_list_file_into_redis(table_file)
+  #stock_list=load_stock_list_file_into_redis(table_file)
 
-    stock_list.keys[0..100].each do |stockid|
-    save_analysis_result(stockid)
-end
+   # stock_list.keys[0..100].each do |stockid|
+    #save_analysis_result(stockid)
+#end
 end

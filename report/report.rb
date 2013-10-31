@@ -1,7 +1,10 @@
-def simple_report_one_stock(full_buy_sell_pair)
 
-full_buy_sell_pair.each do |buy_sell_pair|
-	puts buy_sell_pair
+
+def report_signal(symbol)
+
+puts symbol
 end
 
+if $0==__FILE__
+  simple_report_one_stock("000009.sz")
 end
