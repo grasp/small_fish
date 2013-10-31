@@ -79,7 +79,7 @@ def guess_policy(symbol,will_key)
  end
 
 
- report_hash.sort_by {|_key,_value| _value[3].to_i}.each do |key,value|
+ report_hash.sort_by {|_key,_value| _value[3].to_i}.reverse.each do |key,value|
   #  report_hash.sort_by {|a1,a2| a2[1][1].to_i <=> a1[1][1].to_i}.each do |key,value|
 	#	print "key=#{key[0]}"+"\n"
 	#	value[3]=cal_per(value[1],value[2])
