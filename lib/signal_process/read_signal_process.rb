@@ -3,7 +3,7 @@
 
 def read_signal_process(symbol)
 
-	signal_array=[]
+	 signal_array=[]
 
 	 signal_file=File.expand_path("../../../resources/signal/#{symbol}.txt",__FILE__)
 
@@ -29,5 +29,5 @@ end
 
 
 if $0==__FILE__
-	read_signal_process("000009.sz")
+	a= read_signal_process("000009.sz")
 end

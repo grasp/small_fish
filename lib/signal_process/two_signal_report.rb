@@ -23,12 +23,11 @@ def guess_policy(symbol,will_key)
 	price_hash=read_daily_k_file(symbol)
 
 	#产生所有的组合
-	index_array=get_all_possible_zuhe2(signal_keys.size)
- 
-    puts "index array size=#{index_array.size}"
+	index_array=get_all_possible_zuhe2(signal_keys.size) 
+  puts "index array size=#{index_array.size}"
     #生成的报告Hash
 	report_hash=Hash.new
-    report_key=[]
+  report_key=[]
   index_count=0
  #统计每个组合的输赢次数
  index_array.each do |one_zuhe|
@@ -54,10 +53,10 @@ def guess_policy(symbol,will_key)
    unless report_hash.has_key?(report_key)
     report_hash[report_key]=[0,0,0,0,0] 
      total_occur=1
-   else
-     total_occur+=1
+  # else
+    # total_occur+=1
     end
-    report_hash[report_key][0]=total_occur
+    report_hash[report_key][0]+=1
     report_hash[report_key][1]+=1
     #report_hash[report_key][2]+=1
     end
@@ -76,10 +75,10 @@ def guess_policy(symbol,will_key)
   unless report_hash.has_key?(report_key)
     report_hash[report_key]=[0,0,0,0,0] 
     total_occur=1
-  else
-    total_occur+=1
+  #else
+   # total_occur+=1
   end
-    report_hash[report_key][0]=total_occur
+    report_hash[report_key][0]+=1
     #report_hash[report_key][1]+=1
     report_hash[report_key][2]+=1
     end
@@ -93,21 +92,19 @@ def guess_policy(symbol,will_key)
 
 
  report_hash.sort_by {|_key,_value| _value[3].to_i}.reverse.each do |key,value|
-  #  report_hash.sort_by {|a1,a2| a2[1][1].to_i <=> a1[1][1].to_i}.each do |key,value|
-	#	print "key=#{key[0]}"+"\n"
-	#	value[3]=cal_per(value[1],value[2])
-	#	value[4]=cal_per(value[2],value[1])
-		policy_report<<key.to_s+"#{signal_keys[key[0][0]]}"+"#{signal_keys[key[0][1]]}"+"#"+value.to_s+"\n"
+		policy_report<<key.join("#")+"#"+"#{signal_keys[key[0][0]]}"+"#"+"#{signal_keys[key[0][1]]}"+"#"+value.to_s+"\n"
+
+
 	end
 
-    policy_report.close
+  policy_report.close
    
 end
 
 if $0==__FILE__
    start=Time.now
    #guess_policy("000009.sz","up_1_day")
-  guess_policy("000009.sz","up_10%_after_3_day")
+   guess_policy("000009.sz","up_10%_after_3_day")
 
    # table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
    # stock_list=load_stock_list_file_into_redis(table_file)

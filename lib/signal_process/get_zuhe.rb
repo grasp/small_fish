@@ -30,7 +30,7 @@ iter_array.each do |cycle|
 
 end
 
-puts possible_zuhe.size
+#puts possible_zuhe.size
 possible_zuhe
 end
 

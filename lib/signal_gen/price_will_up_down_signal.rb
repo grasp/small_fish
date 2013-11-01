@@ -10,8 +10,8 @@ def generate_price_will_up_down(price_hash,back_day)
 
 
     today_price_array=price_array[back_day]
-    if back_day>7
-    after_three_days_price=price_array[back_day-7]
+    if back_day>3
+    after_three_days_price=price_array[back_day-3]
    else
 	  after_three_days_price=price_array[back_day]
    end
@@ -23,14 +23,17 @@ def generate_price_will_up_down(price_hash,back_day)
 
     #为简单起见，目前只加一个信号，先跑通整个框架，然后逐步加入更多想知道的
     #到底是+1还是-1？
-    price_will_up_down["up_1_day"]= price_array[back_day][1][3].to_f>price_array[back_day-1][1][3].to_f
+    #print  price_array[back_day].to_s+"\n"
+     #print  price_array[back_day-1]
 
-    price_will_up_down["up_10%_after_3_day"]= ((today_price_array[1][3].to_f-after_three_days_price[1][3].to_f)/after_three_days_price[1][3].to_f).round(2)>=0.05
+    price_will_up_down["up_1_day"]= (price_array[back_day][1][3].to_f<price_array[back_day-1][1][3].to_f) || (price_array[back_day][1][3].to_f<price_array[back_day-2][1][3].to_f) || (price_array[back_day][1][3].to_f<price_array[back_day-3][1][3].to_f)
+
+    price_will_up_down["up_10%_after_3_day"]= (((price_array[back_day-1][1][3].to_f-price_array[back_day][1][3].to_f)/price_array[back_day][1][3].to_f).round(2)>=0.03) || (((price_array[back_day-2][1][3].to_f-today_price_array[1][3].to_f)/price_array[back_day][1][3].to_f).round(2)>=0.03) || (((price_array[back_day-3][1][3].to_f-price_array[back_day][1][3].to_f)/price_array[back_day][1][3].to_f).round(2)>=0.03)
 
 	return  price_will_up_down
 end
 
 if $0==__FILE__
-	price_hash=read_daily_k_file("000009.sz")
+  	price_hash=read_daily_k_file("000009.sz")
     generate_price_will_up_down(price_hash,1)
 end
