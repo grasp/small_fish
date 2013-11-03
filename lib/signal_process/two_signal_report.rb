@@ -5,7 +5,7 @@ require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__
 def guess_policy(symbol,will_key)
 
 	result_path=File.expand_path("../../../resources/policy/two/#{will_key}/#{symbol}.txt",__FILE__)
-  
+
    # puts result_path
 	policy_report  =File.new(result_path,"w+")
 
@@ -32,11 +32,12 @@ def guess_policy(symbol,will_key)
   report_key=[]
   index_count=0
  #统计每个组合的输赢次数
+ start=Time.now
  index_array.each do |one_zuhe|
 
   index_count+=1
   total_occur=0
- 	puts "#{index_count}" if (index_count % 100)==0
+ 	puts "#{index_count},cost=#{Time.now-start}" if (index_count % 1000)==0
  	#先统计赢的
  	win_signal_array.each do |win_signal|
  	report_key=[]
@@ -108,16 +109,19 @@ def test_generae_signal_report_on_one_stock(symbol)
     puts "cost time=#{Time.now-start}"
 end
 
-def test_generae_signal_report_on_multiple_stock
+def test_generae_signal_report_on_multiple_stock(will_key)
 
     table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
     stock_list=load_stock_list_file(table_file)
 
     count=0
-    stock_list.keys[200..210].each do |stock_id|
-    test_generae_signal_report_on_one_stock(stock_id)
+    stock_list.keys[100..2410].each do |stock_id|
+      result_path=File.expand_path("../../../resources/policy/two/#{will_key}/#{stock_id}.txt",__FILE__)
+      unless File.exists?(result_path) 
+        test_generae_signal_report_on_one_stock(stock_id)
+     end
    end
 end
 if $0==__FILE__
-   test_generae_signal_report_on_multiple_stock
+   test_generae_signal_report_on_multiple_stock("up_p10_after_3_day")
 end

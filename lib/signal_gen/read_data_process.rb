@@ -3,7 +3,7 @@
 def read_full_data_process_file(symbol)
 
  processed_file=File.expand_path("../../../resources/data_process/#{symbol}.txt",__FILE__)
- 
+
   return [] unless File.exists?(processed_file)
 
   price_hash={}

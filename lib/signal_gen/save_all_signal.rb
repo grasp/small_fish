@@ -15,12 +15,11 @@ def save_all_signal_to_file(symbol)
      #获取完成的价格hash
       price_hash=get_price_hash_from_history(symbol)
 
-      #倒序？？
+      #puts price_hash.to_a[1]
+
+      #倒序？？ 为什么？？？
       full_price_array=price_hash.to_a.reverse
 
-
-     #获取完成的价格hash
-     price_hash=processed_data_array[0]
 
      full_macd_array=processed_data_array[0].to_a
      full_low_price_array=processed_data_array[1].to_a
@@ -31,10 +30,13 @@ def save_all_signal_to_file(symbol)
      total_size=full_macd_array.size
 
      full_price_array.each_index do |index|
+
        	date=full_price_array[index][0]
+
+       # print "#index #{index} date= #{date}"
         #puts date
         next if index==total_size-1
-        #puts "macd"+full_macd_array[index][0]
+       # puts "macd"+full_macd_array[index][0]
         macd_signal_hash=judge_full_macd_signal(full_macd_array,index)
        # puts "low price"+full_low_price_array[index][0]
         low_price_signal_hash=low_price_signal(full_low_price_array,full_price_array,index)
@@ -67,6 +69,10 @@ def save_all_signal_to_file(symbol)
 
 end
 
+def test_save_one_symbol(symbol)
+  save_all_signal_to_file(symbol)
+end
+
 def test_save_all_signal
     table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
     stock_list=load_stock_list_file(table_file)
@@ -83,6 +89,7 @@ def test_save_all_signal
 end
 
 if $0==__FILE__
-    test_save_all_signal
+   # test_save_all_signal
+   test_save_one_symbol("000009.sz")
  end
 

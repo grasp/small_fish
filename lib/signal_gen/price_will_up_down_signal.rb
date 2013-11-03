@@ -31,9 +31,9 @@ def generate_price_will_up_down(price_hash,back_day)
     price_will_up_down["up_1_day"]||=today_price<hou_tian_price
     price_will_up_down["up_1_day"]||=today_price<da_hou_tian_price
 
-    price_will_up_down["up_p10_after_3_day"]=((tommorrow_price-today_price)/today_price) > 0.03
-    price_will_up_down["up_p10_after_3_day"]||=((hou_tian_price-today_price)/today_price) > 0.03
-    price_will_up_down["up_p10_after_3_day"]||=((da_hou_tian_price-today_price)/today_price) > 0.03
+    price_will_up_down["up_p10_after_3_day"]=((tommorrow_price-today_price)/today_price) >= 0.03
+    price_will_up_down["up_p10_after_3_day"]||=((hou_tian_price-today_price)/today_price) >= 0.03
+    price_will_up_down["up_p10_after_3_day"]||=((da_hou_tian_price-today_price)/today_price) >= 0.03
 
   
 	return  price_will_up_down
