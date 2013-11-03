@@ -15,6 +15,7 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
+resources/history_daily_data_2/*.txt
 resources/history_daily_data/*.txt
 resources/analysis_result/*.txt
 resources/redis-win32/*.rdb
@@ -22,5 +23,9 @@ resources/policy/*.txt
 resources/policy/two/*.txt
 resources/policy/three/*.txt
 resources/signal/*.txt
+resources/data_process/*.txt
+resources/daily_data/*.txt
+resources/daily_data/*/*.txt
+
 
 

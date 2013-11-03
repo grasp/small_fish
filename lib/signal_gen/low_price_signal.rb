@@ -1,7 +1,7 @@
 require File.expand_path("../read_data_process.rb",__FILE__)
 require File.expand_path("../../../init/config_load.rb",__FILE__)
 require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__FILE__)
-
+require File.expand_path("../../data_process/read_daily_price_volume.rb",__FILE__)
 def low_price_signal(full_low_price_array,full_price_array,back_day)
 	low_price_signal_hash=Hash.new
 
@@ -20,19 +20,36 @@ def low_price_signal(full_low_price_array,full_price_array,back_day)
 	return low_price_signal_hash
 end
 
+def generate_low_price_signal_on_backday(low_price_array,full_price_array, back_day)
+
+    low_price_signal_hash=Hash.new
+
+    price_array=full_price_array[back_day]
+
+    low_price_signal_hash["lowest_5_day"]= (low_price_array[1][4].to_f > price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_10_day"]= (low_price_array[1][5].to_f > price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_20_day"]= (low_price_array[1][6].to_f > price_array[1][3].to_f)
+    low_price_signal_hash["lowest_30_day"]= (low_price_array[1][7].to_f > price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_60_day"]= (low_price_array[1][8].to_f > price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_100_day"]= (low_price_array[1][9].to_f > price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_120_day"]= (low_price_array[1][10].to_f > price_array[1][3].to_f) 
+    return low_price_signal_hash
+end
+
 
 def generate_all_low_price_signal(symbol)
 	 #用于保存的Hash
 	 save_hash={}
 
      #第一次数据分析以后的数据载入
-     processed_data_array=read_data_process_file(symbol)
+     processed_data_array=read_full_data_process_file(symbol)
 
      #获取完成的价格hash
-     full_price_array=processed_data_array[0].to_a
+      price_hash=get_price_hash_from_history(symbol)
+      full_price_array=price_hash.to_a
 
      #print full_price_array
-     low_price_hash=processed_data_array[2]
+     low_price_hash=processed_data_array[1]
      full_low_price_array=low_price_hash.to_a
     # print "back day 0 ="+full_low_price_array[0][0].to_s
      total_size=full_low_price_array.size
@@ -51,5 +68,5 @@ save_hash
 end
 
 if $0==__FILE__
-  generate_all_low_price_signal("000009.sz")
+print   generate_all_low_price_signal("000009.sz")
 end

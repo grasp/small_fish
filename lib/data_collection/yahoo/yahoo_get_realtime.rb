@@ -42,6 +42,6 @@ def yahoo_get_extend_quote(symbol)
     puts result_hash
     return result_hash
 end
-yahoo_get_extend_quote("601566.ss")
-#yahoo_get_standand_quote("601566.ss")
-#yahoo_get_real_time_stock_data("601566.ss")
+#yahoo_get_extend_quote("601566.ss")
+yahoo_get_standand_quote("601566.ss")
+yahoo_get_real_time_stock_data("601566.ss")

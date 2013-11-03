@@ -7,7 +7,7 @@ def generate_open_signal(full_price_array,back_day)
 	open_signal=Hash.new
 
 	price_array= full_price_array[back_day]
-	print price_array
+	#print price_array
 
 	open_signal["open_bigger_close"]  = (price_array[1][0].to_f > price_array[1][3].to_f) 
      #开盘价为最高价

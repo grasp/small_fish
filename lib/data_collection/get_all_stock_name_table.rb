@@ -6,7 +6,7 @@ include Test::Unit::Assertions
 lib_path=Pathname.new(__FILE__).parent.parent
 #require File.join(lib_path,"init","redis_init.rb")
 
-def load_stock_list_file_into_redis(stock_list_file)
+def load_stock_list_file(stock_list_file)
 #if $redis.exists("stock_name_list")
 #  $all_stock_list=$redis.hgetall("stock_name_list") 
  # return $all_stock_list
@@ -75,9 +75,7 @@ if $0 == __FILE__
   #This file is search from TongHuaShun software installed folder
   #table_file=File.join(Pathname.new(__FILE__).parent.parent.parent,"resources","stock_table_2013_10_01.txt")
   table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
-  assert(File.exist?(table_file),"#{table_file} not exist!")
-
-  stock_list=load_stock_list_file_into_redis(table_file)
+  stock_list=load_stock_list_file(table_file)
   assert(stock_list.size>2400,"some stock is omitted, less 7500!")
 
 end

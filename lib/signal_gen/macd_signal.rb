@@ -1,17 +1,19 @@
 require File.expand_path("../read_data_process.rb",__FILE__)
 require File.expand_path("../../../init/config_load.rb",__FILE__)
 require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__FILE__)
+require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__FILE__)
+
+
 
 #判断后退几天ma 信号
 ##MACD 1,2,3,4,5,10,20,30,60,100,120,200
-def judge_macd_signal(macd_array,back_day)
+def judge_macd_signal(t_ma_array,y_ma_array,back_day)
 
-	t_ma_array=[]
-
-	macd_array[back_day][1].each {|i| t_ma_array<<i.to_f}#当天的macd数组
+	#t_ma_array=[]
+	#full_macd_array[back_day][1].each {|i| t_ma_array<<i.to_f}#当天的macd数组
   
-	y_ma_array=[]
-	macd_array[back_day+1][1].each {|i| y_ma_array<<i.to_f}#上一天的macd数组
+	#y_ma_array=[]
+	#full_macd_array[back_day+1][1].each {|i| y_ma_array<<i.to_f}#上一天的macd数组
 
     #puts "t_ma_array=#{t_ma_array}"
     #puts "y_ma_array=#{y_ma_array}"
@@ -95,52 +97,19 @@ def judge_macd_signal(macd_array,back_day)
     signal_hash_values=signal_hash.values
 
     signal_hash_keys.each_index do |index|
-  raise unless   signal_hash[signal_hash_keys[index]]==signal_hash_values[index]
+      raise unless   signal_hash[signal_hash_keys[index]]==signal_hash_values[index]
     end
 
     return signal_hash
 
 end
 
+def judge_full_macd_signal(full_macd_array, back_day)
 
-def generate_signal_hash_for_save_file(symbol)
-     #用于保存的Hash
-	  save_hash={}
+    judge_macd_signal(full_macd_array[back_day][1],full_macd_array[back_day+1][1],back_day)
 
-     #第一次数据分析以后的数据载入
-     processed_data_array=read_data_process_file(symbol)
-
-     #获取完成的价格hash
-     price_hash=processed_data_array[0]
-     full_price_array=price_hash.to_a
-
-     #最新的日期在前面，index 为0， back_day的数据为0+back_day
-     full_macd_array=processed_data_array[1].to_a
-     total_size=full_macd_array.size
-
-     full_macd_array.each_index do |index|
-       	date=full_macd_array[index][0]
-        next if index==total_size-1
-        signal_hash=judge_macd_signal(full_macd_array,index)
-        save_hash[date]=signal_hash
-     end
-
-  signal_file_path=File.expand_path("../../../resources/signal/#{symbol}.txt",__FILE__)
-  first_line_flag=true
-  #puts signal_file_path
-  signal_file=File.new(signal_file_path,"w+")
-
-  save_hash.each do |date,s_hash|
-    signal_file<< s_hash.keys.to_s+"\n"   if first_line_flag==true
-    signal_file<<date
-    signal_file<<s_hash.values.to_s+"\n"
-
-    first_line_flag=false
-  
-  end
-  #puts save_hash
-  signal_file.close
 end
+
 
 
 if $0==__FILE__
@@ -156,6 +125,6 @@ if $0==__FILE__
   stock_list=load_stock_list_file_into_redis(table_file)
 
     stock_list.keys[0..100].each do |stockid|
-    generate_signal_hash_for_save_file(stockid)
+   # generate_signal_hash_for_save_file(stockid)
 end
 end

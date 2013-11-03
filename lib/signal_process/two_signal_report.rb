@@ -4,7 +4,8 @@ require File.expand_path("../get_zuhe.rb",__FILE__)
 require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__FILE__)
 def guess_policy(symbol,will_key)
 
-	result_path=File.expand_path("../../../resources/policy/two/#{symbol}.txt",__FILE__)
+	result_path=File.expand_path("../../../resources/policy/two/#{will_key}/#{symbol}.txt",__FILE__)
+  
    # puts result_path
 	policy_report  =File.new(result_path,"w+")
 
@@ -17,10 +18,11 @@ def guess_policy(symbol,will_key)
 
 #将信号分成输赢两组
 	result=split_signal_by_will_key(symbol,will_key)
+
 	win_signal_array=result[1]
 	win_lost_array=result[2]
 
-	price_hash=read_daily_k_file(symbol)
+	price_hash=get_price_hash_from_history(symbol)
 
 	#产生所有的组合
 	index_array=get_all_possible_zuhe2(signal_keys.size) 
@@ -82,7 +84,6 @@ def guess_policy(symbol,will_key)
     #report_hash[report_key][1]+=1
     report_hash[report_key][2]+=1
     end
-
  end
 
  report_hash.each do |key,value|
@@ -101,19 +102,22 @@ def guess_policy(symbol,will_key)
    
 end
 
-if $0==__FILE__
-   start=Time.now
-   #guess_policy("000009.sz","up_1_day")
-   guess_policy("000009.sz","up_10%_after_3_day")
+def test_generae_signal_report_on_one_stock(symbol)
+     start=Time.now
+    guess_policy(symbol,"up_p10_after_3_day")
+    puts "cost time=#{Time.now-start}"
+end
 
-   # table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
-   # stock_list=load_stock_list_file_into_redis(table_file)
-   # stock_list.keys[0..100].each do |stockid|
-   #  guess_policy(stockid,"up_1_day")
-   #end
-time_record=File.new("time_record_1.txt","a+")
-time_record<<Time.now.to_s+" cost time= "+"#{Time.now-start}"
-time_record<<"\n"
-time_record.close
-puts "cost time=#{Time.now-start}"
+def test_generae_signal_report_on_multiple_stock
+
+    table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
+    stock_list=load_stock_list_file(table_file)
+
+    count=0
+    stock_list.keys[200..210].each do |stock_id|
+    test_generae_signal_report_on_one_stock(stock_id)
+   end
+end
+if $0==__FILE__
+   test_generae_signal_report_on_multiple_stock
 end
