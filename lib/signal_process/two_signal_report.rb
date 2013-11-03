@@ -115,7 +115,7 @@ def test_generae_signal_report_on_multiple_stock(will_key)
     stock_list=load_stock_list_file(table_file)
 
     count=0
-    stock_list.keys[100..2410].each do |stock_id|
+    stock_list.keys[2400..2410].each do |stock_id|
       result_path=File.expand_path("../../../resources/policy/two/#{will_key}/#{stock_id}.txt",__FILE__)
       unless File.exists?(result_path) 
         test_generae_signal_report_on_one_stock(stock_id)
