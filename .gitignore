@@ -21,6 +21,7 @@ resources/analysis_result/*.txt
 resources/redis-win32/*.rdb
 resources/policy/*.txt
 resources/policy/two/*.txt
+resources/policy/two/*/*.txt
 resources/policy/three/*.txt
 resources/signal/*.txt
 resources/data_process/*.txt
