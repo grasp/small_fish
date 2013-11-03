@@ -38,7 +38,7 @@ count+=1
 puts "count=#{count}"
  download_one_stock_history_data_from_yahoo(symbol,days)
  #等待8 second 一下，避免访问太多后，不能使用
- sleep 8
+ sleep 15
 end
 end
 
@@ -71,7 +71,7 @@ if $0 == __FILE__
 
 #download_one_stock_history_data_from_yahoo("000002.sz",10000)
 
-#download_all_symbol_into_history_data(10000)
-update_for_not_downloaded(10000)
+download_all_symbol_into_history_data(10000)
+#update_for_not_downloaded(3000)
 
 end

@@ -69,6 +69,7 @@ def generate_volume_array_on_backday(price_hash,back_day)
 volume_array
 end
 
+
 if $0==__FILE__
 	start=Time.now
 	price_hash=get_price_hash_from_history("000009.sz")

@@ -1,55 +1,33 @@
 
 require File.expand_path("../read_daily_price_volume.rb",__FILE__)
 require File.expand_path("../../../init/config_load.rb",__FILE__)
+require 'test/unit'
+include Test::Unit::Assertions
 
 #依次为开盘，最高，最低，收盘，成交量
 def low_high_price_analysis(price_hash)
 
    price_array=price_hash.to_a
 
-   day_array=[] #存储
-  
+   day_array=[] #存储  
 
    low_price_hash=Hash.new
    high_price_hash=Hash.new
 
-
-   [1,2,3,4,5,10,20,30,60,100,120].each do |i|
-     day_array<<AppSettings.send("price_#{i}_day")
-   end
-
    price_array.each_index do |daily_k_index|
-
-   low_price_array=[]
-   high_price_array=[]
-
-   #计算每一日的各个均值
-   day_array.each do |number_day|
-    lowest_price=10000000
-    highest_price=-1
-
-   	(number_day-1).downto(0).each do |j|
-      #边界处理
-      daily_k_index+j>price_array.size-1 ? index=price_array.size-1 : index=daily_k_index+j
-      lowest_price=price_array[index][1][3].to_f if price_array[index][1][3].to_f < lowest_price.to_f
-      highest_price= price_array[index][1][3].to_f  if highest_price.to_f<price_array[index][1][3].to_f
-   	end  #end of macd_day sum  
-
-   	low_price_array<<lowest_price
-   	high_price_array<<highest_price
- 
-   	end #end of one of macd day
-   	#puts price_array[daily_k_index][0]+" "+macd_array.to_s
-   	low_price_hash[price_array[daily_k_index][0]]=low_price_array.to_s 
-   	high_price_hash[price_array[daily_k_index][0]]=high_price_array.to_s 
-end#end of one day index
+     date=price_array[daily_k_index][0]
+     result=low_high_price_array_on_backdays(price_array,daily_k_index)
+     low_price_hash[date]=result[0]
+     high_price_hash[date]=result[1]
+  
+   end#end of one day index
 
 [low_price_hash,high_price_hash]
 
 end
 
-def low_high_price_array_on_backdays(price_hash,back_day)
-    price_array=price_hash.to_a
+def low_high_price_array_on_backdays(price_array,back_day)
+   # price_array=price_hash.to_a
     low_price_array=[]
     high_price_array=[]
     day_array=[]
@@ -58,8 +36,7 @@ def low_high_price_array_on_backdays(price_hash,back_day)
      day_array<<AppSettings.send("price_#{i}_day")
    end
 
-
-     #计算每一日的各个均值
+   #计算每一日的各个均值
    day_array.each do |number_day|
     lowest_price=10000000
     highest_price=-1
@@ -80,10 +57,14 @@ def low_high_price_array_on_backdays(price_hash,back_day)
 [low_price_array,high_price_array]
 end
 
+def test_low_high_price_analysis
+    price_hash=get_price_hash_from_history("000009.sz")
+    low_high_price_analysis(price_hash)
+end
+
 if $0==__FILE__
-	start=Time.now
-	raw_hash=get_price_hash_from_history("000009.sz")
-#	low_high_price_analysis(raw_hash)
-  puts low_high_price_array_on_backdays(raw_hash,0)
-	puts "cost #{Time.now-start} second"
+    start=Time.now
+    result=test_low_high_price_analysis
+    assert_equal(result.size,2)
+    puts "cost #{Time.now-start} second"
 end
