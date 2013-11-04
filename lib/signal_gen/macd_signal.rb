@@ -1,7 +1,6 @@
 require File.expand_path("../read_data_process.rb",__FILE__)
 require File.expand_path("../../../init/config_load.rb",__FILE__)
 require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__FILE__)
-require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__FILE__)
 
 
 
@@ -105,7 +104,7 @@ def judge_macd_signal(t_ma_array,y_ma_array,back_day)
 end
 
 def judge_full_macd_signal(full_macd_array, back_day)
-
+    print "#{full_macd_array.size},#{back_day}"
     judge_macd_signal(full_macd_array[back_day][1],full_macd_array[back_day+1][1],back_day)
 
 end
@@ -122,7 +121,7 @@ if $0==__FILE__
       #This file is search from TongHuaShun software installed folder
   table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
 
-  stock_list=load_stock_list_file_into_redis(table_file)
+  stock_list=get_price_hash_from_history(table_file)
 
     stock_list.keys[0..100].each do |stockid|
    # generate_signal_hash_for_save_file(stockid)

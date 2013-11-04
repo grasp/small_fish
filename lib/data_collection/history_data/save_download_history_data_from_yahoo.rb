@@ -32,13 +32,18 @@ def download_all_symbol_into_history_data(days)
 
 stock_table=File.expand_path("../../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
 stock_list=load_stock_list_file(stock_table)
+
 count=0
 stock_list.keys.each do |symbol|
 count+=1
-puts "count=#{count}"
+symbole_file_name=File.expand_path("../../../../resources/history_daily_data_2/#{symbol}.txt",__FILE__)
+unless File.exists?(symbole_file_name)
+  puts "count=#{count}"
  download_one_stock_history_data_from_yahoo(symbol,days)
  #等待8 second 一下，避免访问太多后，不能使用
- sleep 15
+ sleep 10
+end
+
 end
 end
 

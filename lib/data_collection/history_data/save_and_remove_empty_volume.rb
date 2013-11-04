@@ -9,12 +9,13 @@ def remove_empty_day_from_history_and_copy
     count=0
 
     stock_list.keys.each do |symbol|
-    	orig_content=File.read(File.expand_path("../../../../resources/history_daily_data_2/#{symbol}.txt",__FILE__)).split("\n")
-    	symbol_file_processed=File.expand_path("../../../../resources/history_daily_data/#{symbol}.txt",__FILE__)
-
+        symbol_file_processed=File.expand_path("../../../../resources/history_daily_data/#{symbol}.txt",__FILE__)
+        to_be_symbol_file=File.expand_path("../../../../resources/history_daily_data_2/#{symbol}.txt",__FILE__)
+        if (not File.exists?(symbol_file_processed)) && File.exists?(to_be_symbol_file)
+    	orig_content=File.read(to_be_symbol_file).split("\n")
     	new_file=File.new(symbol_file_processed,"w+")
 
-#最新的在最后面，最老的在前面，方便添加数据
+      #最新的在最后面，最老的在前面，方便添加数据
       	orig_content.reverse.each do |line|
     		result=line.split(",")
     		result.shift(1)
@@ -24,6 +25,7 @@ def remove_empty_day_from_history_and_copy
         count+=1
     	puts "#{symbol_file_processed} done,count=#{count}"
     end
+  end
 
 
 end

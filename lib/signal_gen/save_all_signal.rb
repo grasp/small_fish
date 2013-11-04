@@ -35,7 +35,9 @@ def save_all_signal_to_file(symbol)
 
        # print "#index #{index} date= #{date}"
         #puts date
-        next if index==total_size-1
+       #
+       #
+        #next if index==total_size-1
        # puts "macd"+full_macd_array[index][0]
         macd_signal_hash=judge_full_macd_signal(full_macd_array,index)
        # puts "low price"+full_low_price_array[index][0]

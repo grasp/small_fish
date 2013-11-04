@@ -43,9 +43,12 @@ def save_analysis_result(symbol)
     return 0
 end
 
+def test_save_one_analysy(symbol)
+ save_analysis_result(symbol)
+end
 
+def save_all_analysis_result
 
-if $0==__FILE__
     start=Time.now
 
     data_process_folder=File.expand_path("../../../resources/data_process",__FILE__)
@@ -56,22 +59,21 @@ if $0==__FILE__
     count=0
     stock_list.keys.each do |stock_id|
       result_file_path=File.expand_path("../../../resources/data_process/#{stock_id}.txt",__FILE__)
+
       unless File.exists?(result_file_path)
-	    result=save_analysis_result(stock_id) 
+      result=save_analysis_result(stock_id) 
         count+=1
         puts "count=#{count},result=#{result}"
       end
     
     end
     puts "cost=#{Time.now - start}"
+end
 
-      #This file is search from TongHuaShun software installed folder
-  #table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
- # assert(File.exist?(table_file),"#{table_file} not exist!")
 
-  #stock_list=load_stock_list_file_into_redis(table_file)
 
-   # stock_list.keys[0..100].each do |stockid|
-    #save_analysis_result(stockid)
-#end
+
+
+if $0==__FILE__
+  save_analysis_result("000009.sz")
 end
