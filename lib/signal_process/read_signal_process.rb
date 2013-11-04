@@ -5,7 +5,7 @@ def read_signal_process(symbol)
 
 	 signal_array=[]
 
-	 signal_file=File.expand_path("../../../resources/signal/#{symbol}.txt",__FILE__)
+	 signal_file=File.expand_path("../../../resources/signal_gen/#{symbol}.txt",__FILE__)
 
      #load file into memory
      signal_file_text=File.read(signal_file)
