@@ -27,6 +27,10 @@ resources/signal/*.txt
 resources/data_process/*.txt
 resources/daily_data/*.txt
 resources/daily_data/*/*.txt
+resources/signal_gen/*/*.txt
+resources/signal_gen/*.txt
+resources/signal_process/two/*.txt
+resources/signal_process/three/*.txt
 
 
 

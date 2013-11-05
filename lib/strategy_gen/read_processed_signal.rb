@@ -1,0 +1,18 @@
+def read_processed_signal(symbol,will_key)
+
+  processed_signal_file=File.expand_path("../../../resources/signal_process/two/#{will_key}/#{symbol}.txt",__FILE__)
+  content=File.read(processed_signal_file)
+  string_array=content.split("\n")
+  result_array=[]
+  string_array.each do |line|
+  	result=line.split("#")
+  	percent=result[6].split(",")
+  	result_array<< result if (percent[1].to_i >1 && percent[3].to_i >70)
+  end
+  result_array
+end
+
+if $0==__FILE__
+    will_key="up_p10_after_3_day"
+	read_processed_signal("000004.sz",will_key)
+end
