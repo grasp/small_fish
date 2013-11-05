@@ -38,7 +38,7 @@ def generate_price_will_up_down(price_hash,back_day)
     price_will_up_down["up_1_day"] = today_price<tommorrow_price
     price_will_up_down["up_1_day"]||=today_price<hou_tian_price
     price_will_up_down["up_1_day"]||=today_price<da_hou_tian_price
-    price_will_up_down["up_1_day"] = today_price<four_days_price
+    price_will_up_down["up_1_day"]||= today_price<four_days_price
     price_will_up_down["up_1_day"]||=today_price<five_days_price
     price_will_up_down["up_1_day"]||=today_price<six_days_price
     price_will_up_down["up_1_day"]||=today_price<seven_days_price
@@ -46,7 +46,7 @@ def generate_price_will_up_down(price_hash,back_day)
     price_will_up_down["up_p10_after_3_day"]=((tommorrow_price-today_price)/today_price) >= 0.03
     price_will_up_down["up_p10_after_3_day"]||=((hou_tian_price-today_price)/today_price) >= 0.03
     price_will_up_down["up_p10_after_3_day"]||=((da_hou_tian_price-today_price)/today_price) >= 0.03
-     price_will_up_down["up_p10_after_3_day"]||=((four_days_price-today_price)/today_price) >= 0.03
+    price_will_up_down["up_p10_after_3_day"]||=((four_days_price-today_price)/today_price) >= 0.03
     price_will_up_down["up_p10_after_3_day"]||=((five_days_price-today_price)/today_price) >= 0.03
     price_will_up_down["up_p10_after_3_day"]||=((six_days_price-today_price)/today_price) >= 0.03
     price_will_up_down["up_p10_after_3_day"]||=((seven_days_price-today_price)/today_price) >= 0.03
