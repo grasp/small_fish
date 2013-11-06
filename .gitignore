@@ -31,6 +31,7 @@ resources/signal_gen/*/*.txt
 resources/signal_gen/*.txt
 resources/signal_process/two/*.txt
 resources/signal_process/three/*.txt
+resources/data_validate/three/*.txt
 
 
 
