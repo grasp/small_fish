@@ -43,6 +43,7 @@ def read_signal_gen(symbol)
      # signal_array << signal_file_array[back_day].gsub(/\d|\-|\s|\[|\]|\"/,"").split(",")
      result=signal_file_array[back_day].split("[")
       key=result[0]
+      next if result[1].nil?  #TBD
       value=result[1].gsub(/\]|\"/,"").split(",")
       signal_hash[key]=value
      end

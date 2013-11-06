@@ -11,9 +11,9 @@ def guess_policy(symbol,will_key)
 
 	# puts policy_report
 
-    signal_result=read_signal_process(symbol)
+    signal_result=read_signal_gen(symbol)
 
-	signal_array=signal_result[1]
+	signal_hash=signal_result[1]
 	signal_keys=signal_result[0]
 
 #将信号分成输赢两组
@@ -67,6 +67,7 @@ def guess_policy(symbol,will_key)
     #再统计输的
     #先统计赢的
  	win_lost_array.each do |win_lost|
+    next if win_lost.nil?
     report_key=[]
  	#首先产生组合键值
  	#report_key=one_zuhe.to_s
@@ -78,8 +79,6 @@ def guess_policy(symbol,will_key)
   unless report_hash.has_key?(report_key)
     report_hash[report_key]=[0,0,0,0,0] 
     total_occur=1
-  #else
-   # total_occur+=1
   end
     report_hash[report_key][0]+=1
     #report_hash[report_key][1]+=1
