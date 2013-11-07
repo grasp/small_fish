@@ -1,6 +1,6 @@
 def read_processed_signal(symbol,will_key)
 
-  processed_signal_file=File.expand_path("../../../resources/signal_process/two/#{will_key}/#{symbol}.txt",__FILE__)
+  processed_signal_file=File.expand_path("./signal_process/two/#{will_key}/#{symbol}.txt","#{AppSettings.resource_path}")
   content=File.read(processed_signal_file)
   string_array=content.split("\n")
   result_array=[]

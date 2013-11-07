@@ -1,9 +1,9 @@
-require File.expand_path("../../signal_process/split_signal.rb",__FILE__)
+require File.expand_path("../../signal_process/split_signal_into_win_lost.rb",__FILE__)
 
 def read_signal_process_result(symbol,will_key)
-	signal_process_path=File.expand_path("../../../resources/signal_process/two/#{will_key}/#{symbol}.txt",__FILE__)
-	puts signal_process_path
 
+	signal_process_path=File.expand_path("./signal_process/two/#{will_key}/#{symbol}.txt","#{AppSettings.resource_path}")
+    puts "signal_process_path=#{signal_process_path}"
 	signal_process=File.read(signal_process_path).split("\n")
 	signal_process_array=[]
 	signal_process.each_index do |index|

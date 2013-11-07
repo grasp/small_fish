@@ -1,5 +1,4 @@
 
-require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__FILE__)
 require  File.expand_path("../../signal_process/read_generated_signal.rb",__FILE__)
 require  File.expand_path("../read_processed_signal.rb",__FILE__)
 def buy_by_up_p10_after_several_days
@@ -10,16 +9,13 @@ end
 if $0==__FILE__
 	buy_by_up_p10_after_several_days
     will_key="up_p10_after_3_day"
-    date="2013-10-30"
-
-	table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
-    stock_list=load_stock_list_file(table_file)
+    date="2013-11-01"
 
     count=0
-    stock_list.keys[1..2410].each do |stock_id|
+    $all_stock_list.keys[1..2410].each do |stock_id|
  
-      signal_file_path=File.expand_path("../../../resources/signal_gen/#{stock_id}.txt",__FILE__)
-      signal_process_path=File.expand_path("../../../resources/signal_process/two/#{will_key}/#{stock_id}.txt",__FILE__)
+      signal_file_path=File.expand_path("./signal/#{stock_id}.txt","#{AppSettings.resource_path}")
+      signal_process_path=File.expand_path("./signal_process/two/#{will_key}/#{stock_id}.txt","#{AppSettings.resource_path}")
       if File.exists?(signal_file_path)  && File.exists?(signal_process_path)
          # print stock_id
       	signal_array=read_signal_gen(stock_id)[1][date]
@@ -35,7 +31,7 @@ if $0==__FILE__
 
         end
          else
-          puts "ignore #{stock_id}"
+         # puts "ignore #{stock_id}"
      end
    end
 end
