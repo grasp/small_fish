@@ -1,6 +1,6 @@
 
 require File.expand_path("../read_daily_price_volume.rb",__FILE__)
-require File.expand_path("../../../init/config_load.rb",__FILE__)
+
 
 #依次为开盘，最高，最低，收盘，成交量
 def generate_one_stock_macd(price_hash)

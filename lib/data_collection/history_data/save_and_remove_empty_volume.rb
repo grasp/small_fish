@@ -1,16 +1,14 @@
-require File.expand_path("../../get_all_stock_name_table.rb",__FILE__)
-def remove_empty_day_from_history_and_copy
-	#symbol_file_orig=File.expand_path("../../../../resources/history_daily_data_2/#{symbol}.txt",__FILE__)
-  	#symbol_file_processed=File.expand_path("../../../../resources/history_daily_data/#{symbol}.txt",__FILE__)
+require File.expand_path("../../../../init/small_fish_init.rb",__FILE__)
 
-    stock_table=File.expand_path("../../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
-    stock_list=load_stock_list_file(stock_table)
- 
+
+def remove_empty_day_from_history_and_copy
+
     count=0
 
-    stock_list.keys.each do |symbol|
-        symbol_file_processed=File.expand_path("../../../../resources/history_daily_data/#{symbol}.txt",__FILE__)
-        to_be_symbol_file=File.expand_path("../../../../resources/history_daily_data_2/#{symbol}.txt",__FILE__)
+    $all_stock_list.keys.each do |symbol|
+        symbol_file_processed=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
+        to_be_symbol_file=File.expand_path("./history_daily_data_2/#{symbol}.txt","#{AppSettings.resource_path}")
+
         if (not File.exists?(symbol_file_processed)) && File.exists?(to_be_symbol_file)
     	orig_content=File.read(to_be_symbol_file).split("\n")
     	new_file=File.new(symbol_file_processed,"w+")
@@ -21,6 +19,7 @@ def remove_empty_day_from_history_and_copy
     		result.shift(1)
     		new_file<<result.join("#") +"\n" unless line.match(",000,")
     	end
+        
     	new_file.close
         count+=1
     	puts "#{symbol_file_processed} done,count=#{count}"

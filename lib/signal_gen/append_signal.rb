@@ -9,7 +9,8 @@ require File.expand_path("../../data_process/read_daily_price_volume.rb",__FILE_
 #back day 0表示最新的一天
 def append_signal(symbol,back_day)
 
-	processed_data=File.expand_path("../../../resources/data_process/#{symbol}.txt",__FILE__)
+	processed_data=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_data}")
+
     contents_array=File.read(processed_data).split("\n").reverse
  
     price_hash=get_price_hash_from_history(symbol)
@@ -43,7 +44,7 @@ def append_signal(symbol,back_day)
 
 
 #加入到文件中
-   signal_file_path=File.expand_path("../../../resources/signal/#{symbol}.txt",__FILE__)
+   signal_file_path=File.expand_path("./signal/#{symbol}.txt","#{AppSettings.resource_data}")
    signal_file=File.new(signal_file_path,"a+")
    signal_file<<date.to_s+result_hash.values.to_s+"\n"
    signal_file.close

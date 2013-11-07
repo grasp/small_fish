@@ -1,8 +1,8 @@
 
-
+require File.expand_path("../../../init/small_fish_init.rb",__FILE__)
 def read_full_data_process_file(symbol)
 
- processed_file=File.expand_path("../../../resources/data_process/#{symbol}.txt",__FILE__)
+ processed_file=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
 
   return [] unless File.exists?(processed_file)
 
@@ -13,7 +13,9 @@ def read_full_data_process_file(symbol)
   volume_hash={}
   
  content_array=File.read(processed_file).split("\n")
-content_array.each do |line|
+#新的先处理
+content_array.reverse.each do |line|
+
  	result_array=line.strip.split("#")
  	if  result_array.size>4
    	date=result_array[0]
@@ -34,9 +36,9 @@ end
 end
 
 def read_processed_data_on_backday(symbol,back_day)
-    processed_file=File.expand_path("../../../resources/data_process/#{symbol}.txt",__FILE__)
-    contents_array=File.read(processed_file).split("\n")
-    needed_line_array=contents_array.reverse[back_day].split("#")
+  processed_file=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
+  contents_array=File.read(processed_file).split("\n")
+  needed_line_array=contents_array.reverse[back_day].split("#")
    # puts needed_line_array
 
   macd_array=needed_line_array[1].gsub(/\[|\]/,"").split(",")
@@ -51,6 +53,6 @@ end
 
 
 if $0==__FILE__
-	print read_full_data_process_file("000009.sz")
+	 read_full_data_process_file("000009.sz")
 # print   read_processed_data_on_backday("000009.sz",0)
 end

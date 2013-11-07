@@ -20,8 +20,9 @@ def save_all_signal_to_file(symbol)
       #倒序？？ 为什么？？？
       full_price_array=price_hash.to_a.reverse
 
-
+    
      full_macd_array=processed_data_array[0].to_a
+      raise if full_macd_array.nil?
      full_low_price_array=processed_data_array[1].to_a
      full_high_price_array=processed_data_array[2].to_a
      full_volume_array=processed_data_array[3].to_a
@@ -32,6 +33,7 @@ def save_all_signal_to_file(symbol)
      full_price_array.each_index do |index|
 
        	date=full_price_array[index][0]
+        #puts "#{date} and index=#{index}" 
 
        # print "#index #{index} date= #{date}"
         #puts date
@@ -39,7 +41,7 @@ def save_all_signal_to_file(symbol)
        #
         #next if index==total_size-1
        # puts "macd"+full_macd_array[index][0]
-        macd_signal_hash=judge_full_macd_signal(full_macd_array,index)
+        macd_signal_hash=judge_full_macd_signal(full_macd_array,index,total_size) 
        # puts "low price"+full_low_price_array[index][0]
         low_price_signal_hash=low_price_signal(full_low_price_array,full_price_array,index)
         #puts "high"+full_high_price_array[index][0]
@@ -52,22 +54,22 @@ def save_all_signal_to_file(symbol)
         save_hash[date]=macd_signal_hash.merge(low_price_signal_hash).merge(high_price_signal_hash).merge(volume_signal_hash).merge(open_signal)
      end
 
-  signal_file_path=File.expand_path("../../../resources/signal/#{symbol}.txt",__FILE__)
-  first_line_flag=true
-  #puts signal_file_path
-  signal_file=File.new(signal_file_path,"w+")
+  signal_file_path=File.expand_path("./signal/#{symbol}.txt","#{AppSettings.resource_path}")
 
-  save_hash.each do |date,s_hash|
-    signal_file<< s_hash.keys.to_s+"\n"   if first_line_flag==true
-    signal_file<<date
-    signal_file<<s_hash.values.to_s+"\n"
+ # unless File.exists?(signal_file_path)
+   first_line_flag=true
+   #puts signal_file_path
+   signal_file=File.new(signal_file_path,"w+")
 
-    first_line_flag=false
-  
-  end
-  #puts save_hash
-  signal_file.close
-
+   save_hash.each do |date,s_hash|
+     signal_file<< s_hash.keys.to_s+"\n"   if first_line_flag==true
+     signal_file<<date+"#"
+     signal_file<<s_hash.values.to_s+"\n"
+     first_line_flag=false  
+   end
+   #puts save_hash
+   signal_file.close
+  #end
 
 end
 
@@ -76,13 +78,14 @@ def test_save_one_symbol(symbol)
 end
 
 def test_save_all_signal
-    table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
-    stock_list=load_stock_list_file(table_file)
 
     count=0
-    stock_list.keys.each do |stock_id|
-      result_file_path=File.expand_path("../../../resources/signal/#{stock_id}.txt",__FILE__)
-        unless File.exists?(result_file_path)
+    $all_stock_list.keys.each do |stock_id|
+      result_file_path=File.expand_path("./signal/#{stock_id}.txt","#{AppSettings.resource_path}")
+      processed_file_path=File.expand_path("./data_process/#{stock_id}.txt","#{AppSettings.resource_path}")
+
+        #源文件存在，并且目标文件不存在
+        if (not File.exists?(result_file_path)) && File.exists?(processed_file_path)
          count+=1
          save_all_signal_to_file(stock_id)
          puts "count=#{count}"
@@ -91,7 +94,7 @@ def test_save_all_signal
 end
 
 if $0==__FILE__
-   # test_save_all_signal
-   test_save_one_symbol("000009.sz")
+    test_save_all_signal
+  # test_save_one_symbol("000009.sz")
  end
 

@@ -3,7 +3,7 @@ require File.expand_path("../read_generated_signal.rb",__FILE__)
 require File.expand_path("../../data_process/read_daily_price_volume.rb",__FILE__)
 require File.expand_path("../../signal_gen/price_will_up_down_signal.rb",__FILE__)
 
-def split_signal_by_will_key(symbol,will_key)
+def split_signal_into_win_lost(symbol,will_key)
 
         signal_result=read_signal_gen(symbol)
 

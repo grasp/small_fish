@@ -1,17 +1,22 @@
+require File.expand_path("../../../init/small_fish_init.rb",__FILE__)
 
 #将日线数据转化成hash
 #hash的key 为日期数据
 #hash 的值为几个基本数据，依次为开盘，最高，最低，收盘，成交量
 def get_price_hash_from_history(symbol)
+  
 	price_volume_hash=Hash.new
-	stock_file_path=File.expand_path("../../../resources/history_daily_data/#{symbol}.txt",__FILE__)
-    puts stock_file_path
-    raise unless File.exist?(stock_file_path)
-      #快速载入到内存
-    daily_k_array=File.read(stock_file_path).split("\n")
-   #最新的日子在前面
+	stock_file_path=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
+
+  puts stock_file_path
+  raise unless File.exist?(stock_file_path)
+  #快速载入到内存
+  daily_k_array=File.read(stock_file_path).split("\n")
+
+  #最新的日子在前面
   daily_k_array.reverse.each do |line|	   
  	daily_data = line.split("#")
+
  	#成交量为0的我们忽略不计，已经在前面处理掉了
  	#如果数据没有基于price_hash产生，就会有问题，索引的下标会不一样！！！ 	
  	#next if (daily_data[2].nil? ||daily_data[6].to_f==0)

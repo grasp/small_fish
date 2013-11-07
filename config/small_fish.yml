@@ -1,7 +1,7 @@
 app_name: "small_fish"
 
-stock_list_path: "resources/stock_list"
-stock_list_name: "stock_table_2013_10_01.txt"
+resource_path: "c:/users/hunterwork/resources"
+stock_list_name: "stock_list/stock_table_2013_10_01.txt"
 
 macd_1_day: 1
 macd_2_day: 2

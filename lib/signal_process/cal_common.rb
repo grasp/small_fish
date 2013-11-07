@@ -1,4 +1,5 @@
 def cal_per(a,b)
+	return 0 if a==0 && b==0
 	return ((a.to_f/(a+b))*100).round(2)
 end
 

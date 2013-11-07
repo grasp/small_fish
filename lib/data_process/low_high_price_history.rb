@@ -1,8 +1,4 @@
-
 require File.expand_path("../read_daily_price_volume.rb",__FILE__)
-require File.expand_path("../../../init/config_load.rb",__FILE__)
-require 'test/unit'
-include Test::Unit::Assertions
 
 #依次为开盘，最高，最低，收盘，成交量
 def low_high_price_analysis(price_hash)
@@ -65,6 +61,5 @@ end
 if $0==__FILE__
     start=Time.now
     result=test_low_high_price_analysis
-    assert_equal(result.size,2)
     puts "cost #{Time.now-start} second"
 end

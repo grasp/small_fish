@@ -1,85 +1,70 @@
 
+def load_stock_list_file(stock_list_file)
 
+raise unless File.exist?(stock_list_file)
 
+tong_hua_shun_stock_list_file=stock_list_file
 
-#lib_path=Pathname.new(__FILE__).parent.parent
-#require File.join(lib_path,"init","redis_init.rb")
-#require File.join(lib_path,"utility","get_all_stock_name_table.rb")
-require File.expand_path("../config_load.rb",__FILE__)
-require File.expand_path("../redis_init.rb",__FILE__)
+all_stock_list=Hash.new
+sh_stock_name_list=Hash.new
+sz_stock_name_list=Hash.new
+zhongxiao_stock_name_list=Hash.new
+chuangye_stock_name_list=Hash.new
 
-#$redis.flushdb
-#if  $redis.exists("stock_name_list")!=true
-	# table_file=File.join(lib_path.parent,"info","stock_table_2013_10_01.txt")
-     #assert(File.exist?(table_file),"#{table_file} not exist!")
-     #load_stock_list_file_into_redis(table_file)
- #else
- #	$all_stock_list=$redis.hget("stock_name_list")
+count=0
 
+File.open(tong_hua_shun_stock_list_file,"r").each do |line|
+  newline=line.force_encoding("utf-8")
+  code=newline.match(/^\d\d\d\d\d\d/).to_s.force_encoding("utf-8")
+  name=newline.match(/\D+/).to_s.force_encoding("utf-8")
 
-#end
+ puts "Warn:#{code} without name!!" if name.nil?
 
-module StockList
+#only handle those 600,000,002,300 catogory.
 
-#load stock list into hash with yahoo symbol and name
-def load_stock_list_file
-
-	stock_list_file=File.expand_path("../../resources/stock_list/#{AppSettings.stock_list_name}",__FILE__)
-	raise unless File.exist?(stock_list_file)
-    
-    all_stock_list=Hash.new
-    File.open(stock_list_file,"r").each do |line|
-    newline=line.force_encoding("utf-8")
-    code=newline.match(/^\d\d\d\d\d\d/).to_s.force_encoding("utf-8")
-    name=newline.match(/\D+/).to_s.force_encoding("utf-8")
-    
-    raise if name.nil? && code.nil?
-    puts "Warn:#{code} without name!!" if name.nil?
-
-    if code.match(/^60\d\d\d\d/)
+  if code.match(/^60\d\d\d\d/)
   	code=code+".ss"
+  	sh_stock_name_list[code]=name
   	all_stock_list[code]=name
-    elsif code.match(/^000\d\d\d/)
+  elsif code.match(/^000\d\d\d/)
   	code=code+".sz"
+  	sz_stock_name_list[code]=name
   	all_stock_list[code]=name
-    elsif code.match(/^002\d\d\d/)
-    code=code+".sz"
-    all_stock_list[code]=name
-    elsif code.match(/^300\d\d\d/)
+  elsif code.match(/^002\d\d\d/)
+  code=code+".sz"
+  zhongxiao_stock_name_list[code]=name
+  all_stock_list[code]=name
+elsif code.match(/^300\d\d\d/)
 	code=code+".sz"
+	chuangye_stock_name_list[code]=name
 	all_stock_list[code]=name
-    else
-    end    
-    end
-    return all_stock_list
-end
-
-def store_stock_list_into_redis(stock_list)
-  
-  #stock_id=Integer.new
-  stock_id=0
-
-  stock_list.each do |symbol,name|
-    $redis.set("sym_id_#{symbol}",stock_id)
-    $redis.set("id_sym_#{stock_id}",symbol)
-    $redis.set("sym_nam_#{symbol}",name)
-    stock_id+=1
+else
   end
-
-
+  count+=1
 end
 
+puts "total stock=#{count}\rsh main stock :#{sh_stock_name_list.size}\r\
+sz main stock:#{sz_stock_name_list.size}\rsz zhongxiao stock:#{zhongxiao_stock_name_list.size}\r\
+sz chuangye stock:#{chuangye_stock_name_list.size}"
+
+#now save hash to database	
+#all_stock_list.each do |stock_id,stock_name|
+ # $redis.hset("stock_name_list",stock_id,stock_name)  #remember how your save data here
+#end
+$all_stock_list=all_stock_list
+return all_stock_list
 end
 
 
-if $0==__FILE__
-  include StockList
-  #stock_list= load_stock_list_file
-  #store_stock_list_into_redis(stock_list)
-  start=Time.now
- 2400.downto(0).each do |i|
-   $redis.get("id_sym_#{i}") 
-  end
-  puts "cost #{Time.now-start}"
+
+
+if $0 == __FILE__
+  #This file is search from TongHuaShun software installed folder
+  #table_file=File.join(Pathname.new(__FILE__).parent.parent.parent,"resources","stock_table_2013_10_01.txt")
+  table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
+  stock_list=load_stock_list_file(table_file)
 end
+
+
+
 

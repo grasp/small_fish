@@ -30,7 +30,7 @@ iter_array.each do |cycle|
 
 end
 
-#puts possible_zuhe.size
+puts possible_zuhe.size
 possible_zuhe
 end
 
@@ -61,7 +61,8 @@ end
 
 if $0==__FILE__
   start=Time.now
- a=get_all_possible_zuhe3(150)
- puts a.size*4
+ a=get_all_possible_zuhe3(69)
+ #puts a.size*4
+ #get_all_possible_zuhe2(100)
  puts "cost time=#{Time.now-start}"
 end

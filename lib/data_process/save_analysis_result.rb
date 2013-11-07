@@ -1,13 +1,12 @@
 
 require File.expand_path("../macd_history.rb",__FILE__)
-require  File.expand_path("../../data_collection/get_all_stock_name_table.rb",__FILE__)
-
 require File.expand_path("../low_high_price_history.rb",__FILE__)
 require File.expand_path("../volume_history.rb",__FILE__)
+require File.expand_path("../../data_validate/validate_history_data.rb",__FILE__)
 
 def save_analysis_result(symbol)
 
-    result_file_path=File.expand_path("../../../resources/data_process/#{symbol}.txt",__FILE__)
+    result_file_path=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
     #analysis_result_file=File.new("#{symbol}.txt","w+")
     #puts result_file_path
     price_hash=get_price_hash_from_history(symbol)
@@ -51,17 +50,20 @@ def save_all_analysis_result
 
     start=Time.now
 
-    data_process_folder=File.expand_path("../../../resources/data_process",__FILE__)
+    data_process_folder= File.expand_path("./data_process","#{AppSettings.resource_path}")   
     Dir.mkdir(data_process_folder) unless File.exists?(data_process_folder)
 
-    table_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
-    stock_list=load_stock_list_file(table_file)
     count=0
-    stock_list.keys.each do |stock_id|
-      result_file_path=File.expand_path("../../../resources/data_process/#{stock_id}.txt",__FILE__)
+  
 
-      unless File.exists?(result_file_path)
-      result=save_analysis_result(stock_id) 
+    #无效数据留给前面去解决，后面的人只处理正确的数据
+    invalide_list=get_invalid_history_daily_data_list
+
+    $all_stock_list.keys.each do |stock_id|
+      
+      result_file_path=File.expand_path("./data_process#{stock_id}.txt","#{AppSettings.resource_path}")   
+      if (not File.exists?(result_file_path)) && File.exists?(File.expand_path("./history_daily_data/#{stock_id}.txt","#{AppSettings.resource_path}")) &&  (not invalide_list.include?(stock_id))  
+        result=save_analysis_result(stock_id) 
         count+=1
         puts "count=#{count},result=#{result}"
       end
@@ -75,5 +77,6 @@ end
 
 
 if $0==__FILE__
-  save_analysis_result("000009.sz")
+  #save_analysis_result("000009.sz")
+  save_all_analysis_result
 end

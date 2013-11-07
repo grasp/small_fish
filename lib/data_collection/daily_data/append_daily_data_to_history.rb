@@ -1,3 +1,4 @@
+
 def append_daily_data_into_history(date)
   sina_data_hash=Hash.new
   yahoo_data_hash=Hash.new
