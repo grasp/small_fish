@@ -8,7 +8,7 @@ def get_price_hash_from_history(symbol)
 	price_volume_hash=Hash.new
 	stock_file_path=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
 
-  puts stock_file_path
+  #puts stock_file_path
   raise unless File.exist?(stock_file_path)
   #快速载入到内存
   daily_k_array=File.read(stock_file_path).split("\n")

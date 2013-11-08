@@ -6,6 +6,10 @@ table_file=File.expand_path("./#{AppSettings.stock_list_name}","#{AppSettings.re
 $all_stock_list=load_stock_list_file(table_file)
 
 #mkdir
+
+data_validate_path=File.expand_path("./daily_data","#{AppSettings.resource_path}")
+Dir.mkdir(data_validate_path) unless File.exists?(data_validate_path)
+
 data_validate_path=File.expand_path("./data_validate","#{AppSettings.resource_path}")
 Dir.mkdir(data_validate_path) unless File.exists?(data_validate_path)
 

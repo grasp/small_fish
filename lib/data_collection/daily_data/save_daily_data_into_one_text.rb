@@ -1,5 +1,5 @@
 require 'net/http' 
-require File.expand_path("../../get_all_stock_name_table.rb",__FILE__)
+require File.expand_path("../../../../init/small_fish_init.rb",__FILE__)
 
 def convert_to_sina_symbol(stock_id_array)
    new_stock_array=[]
@@ -12,7 +12,7 @@ def convert_to_sina_symbol(stock_id_array)
 end
 
 def create_date_folder(date)
-	daily_data_path=File.expand_path("../../../../resources/daily_data",__FILE__)
+	daily_data_path=File.expand_path("./daily_data","#{AppSettings.resource_path}")
 	#today=Time.now.to_s[0..9]
     Dir.mkdir(daily_data_path) unless File.exists?(daily_data_path)
 	today_folder=File.join(daily_data_path,date)	#puts today_folder
@@ -51,7 +51,7 @@ def combine_daily_data_from_sina(stock_id_array,date)
 
 	sina_symbol_array=convert_to_sina_symbol(stock_id_array)
    
-    daily_data_folder=daily_data_path=File.expand_path("../../../../resources/daily_data/#{date}",__FILE__)
+    daily_data_folder=daily_data_path=File.expand_path("./daily_data","#{AppSettings.resource_path}")
 
     daily_txt="#{date}.txt"
     contents=""
@@ -75,23 +75,26 @@ end
 
 
 def save_daily_data_into_one_text(date)
-	 stock_list_file=File.expand_path("../../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
-	 all_stock_list=load_stock_list_file(stock_list_file)
-	 combine_daily_data_from_sina(all_stock_list.keys,date)
+	 #stock_list_file=File.expand_path("../../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
+	# all_stock_list=load_stock_list_file(stock_list_file)
+	 combine_daily_data_from_sina($all_stock_list.keys,date)
 end
 
 
 
 if $0==__FILE__
 
- start=Time.now
+start=Time.now
 
- #stock_list_file=File.expand_path("../../../resources/stock_list/stock_table_2013_10_01.txt",__FILE__)
 
- #all_stock_list=load_stock_list_file(stock_list_file)
+ENV['http_proxy']="http://10.140.19.49:808"
+ENV['https_proxy']="https://10.140.19.49:808"
 
-date="2013-11-01"
-create_date_folder(date)
-save_daily_data_into_one_text(date)
-puts "cost =#{Time.now-start}"
+
+if (not Time.now.saturday?) && (not Time.now.sunday?)      #=> returns a boolean value
+
+  date=Time.now.to_s[0,11]
+  save_daily_data_into_one_text(date)
+  puts "cost =#{Time.now-start}"
+end
 end

@@ -1,4 +1,4 @@
-def read_processed_signal(symbol,will_key)
+def read_processed_signal(symbol,will_key,win_percent,count)
 
   processed_signal_file=File.expand_path("./signal_process/two/#{will_key}/#{symbol}.txt","#{AppSettings.resource_path}")
   content=File.read(processed_signal_file)
@@ -7,7 +7,7 @@ def read_processed_signal(symbol,will_key)
   string_array.each do |line|
   	result=line.split("#")
   	percent=result[6].split(",")
-  	result_array<< result if (percent[1].to_i >1 && percent[3].to_i >70)
+  	result_array<< result if (percent[1].to_i >count && percent[3].to_i >win_percent)
   end
   result_array
 end
