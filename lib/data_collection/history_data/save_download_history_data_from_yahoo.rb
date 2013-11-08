@@ -56,7 +56,7 @@ end
 #only run if test this file
 if $0 == __FILE__
 
-download_all_symbol_into_history_data(10000)
-
+#download_all_symbol_into_history_data(10000)
+download_one_stock_history_data_from_yahoo("000002.sz",10000)
 
 end

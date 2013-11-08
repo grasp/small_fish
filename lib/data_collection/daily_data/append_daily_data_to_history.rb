@@ -9,9 +9,12 @@ def append_daily_data_into_history(date)
 
   puts daily_data_path
   raise unless File.exists?(daily_data_path)
-  contents_array=File.read(daily_data_path).split("\n")
 
+  contents_array=File.read(daily_data_path).split("\n")
+  count=0
   contents_array.each do |daily_data|
+    count+=1
+    puts "count=#{count}"
   	result=daily_data.split("#")
   	#result[0] 是代号
 
@@ -49,6 +52,6 @@ end
 
 if $0==__FILE__
     start=Time.now
-	  append_daily_data_into_history("2013-11-04")
+	  append_daily_data_into_history("2013-11-08")
     puts "cost #{Time.now-start}"
 end

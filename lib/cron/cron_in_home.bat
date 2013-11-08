@@ -1,0 +1,1 @@
+C:\Ruby200\bin\ruby.exe G:\small_fish\lib\data_collection\daily_data\save_daily_data_into_one_text.rb

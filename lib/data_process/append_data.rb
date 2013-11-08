@@ -21,7 +21,6 @@ def append_processed_data(symbol,price_hash,back_day)
   processed_data_file<<"#"+volume_array.to_s
   processed_data_file<<"\n"
   processed_data_file.close
-
 end
 
 
