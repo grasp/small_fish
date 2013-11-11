@@ -47,16 +47,16 @@ end
 if $0==__FILE__
     start=Time.now
     will_key="up_p10_after_3_day"
-   # date="2013-10-21"
+   date="2013-11-08"
     index_symbol="000009.sz"
     price_hash=get_price_hash_from_history(index_symbol)
     price_array=price_hash.to_a
 
     win_percent=95
     win_count=10
-    price_array[9..30].each do |array|
-      puts array[0]
-     buy_on_date(array[0],will_key,win_percent,win_count)
-    end
+   # price_array[9..30].each do |array|
+    #  puts array[0]
+     buy_on_date(date,will_key,win_percent,win_count)
+   # end
     puts "cost=#{Time.now-start}"
 end

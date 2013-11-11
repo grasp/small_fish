@@ -40,8 +40,8 @@ volume_hash
 
 end
 
-def generate_volume_array_on_backday(price_hash,back_day)
-     price_array=price_hash.to_a
+def generate_volume_array_on_backday(price_array,back_day)
+    # price_array=price_hash.to_a
    day_array=[] #存储  
 
 

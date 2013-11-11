@@ -87,8 +87,8 @@ if $0==__FILE__
 start=Time.now
 
 
-ENV['http_proxy']="http://10.140.19.49:808"
-ENV['https_proxy']="https://10.140.19.49:808"
+#ENV['http_proxy']="http://10.140.19.49:808"
+#ENV['https_proxy']="https://10.140.19.49:808"
 
 
 if (not Time.now.saturday?) && (not Time.now.sunday?)      #=> returns a boolean value

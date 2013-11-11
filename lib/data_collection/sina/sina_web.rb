@@ -2,11 +2,7 @@ require 'net/http'
 require 'ostruct' 
 
   
-#coding:UTF-8
-sina_array_description_index={
-1 => "最高价"
 
-}
 
 
 def sina_get_realtime_data_for_one_stock(stock_number)
@@ -36,7 +32,7 @@ end
 
 def get_sina_real_time_data_without_proxy(stock_number)
    
-	response= Net::HTTP.get("hq.sinajs.cn","/list=sz000009" )
+	response= Net::HTTP.get("hq.sinajs.cn","/list=#{stock_number}" )
 	#puts response
 	return response.split(",")
 
@@ -67,6 +63,8 @@ yahoo_array
 end
 
 if $0==__FILE__
-  result_array=get_sina_real_time_data_without_proxy("sz000009")
-  puts parse_sina_result_to_yahoo(result_array)
+  result_array=get_sina_real_time_data_without_proxy("sz000509")
+
+  puts result_array
+ # puts parse_sina_result_to_yahoo(result_array)
 end

@@ -23,6 +23,7 @@ def low_high_price_analysis(price_hash)
 end
 
 def low_high_price_array_on_backdays(price_array,back_day)
+  
    # price_array=price_hash.to_a
     low_price_array=[]
     high_price_array=[]
@@ -41,6 +42,7 @@ def low_high_price_array_on_backdays(price_array,back_day)
 
         #边界处理
         back_day+j>price_array.size-1 ? index=price_array.size-1 : index=back_day+j
+        print "price_array[index]=#{price_array[index]},#{index}" if  price_array[index].nil?
         #比较
         lowest_price=price_array[index][1][3] if price_array[index][1][3].to_f < lowest_price.to_f
         highest_price= price_array[index][1][3]  if highest_price.to_f<price_array[index][1][3].to_f

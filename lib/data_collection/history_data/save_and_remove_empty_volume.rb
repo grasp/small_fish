@@ -45,7 +45,8 @@ if $0==__FILE__
 #首先要下载到history_daily_data_2,然后再处理到history_daily_data
 #remove_empty_day_from_history_and_copy
 
-remove_empty_day_from_history_and_copy_for_one("000002.sz")
+remove_empty_day_from_history_and_copy_for_one("000009.sz")
+
 end
 
 
