@@ -5,6 +5,7 @@ require File.expand_path("../stock_list_init.rb",__FILE__)
 table_file=File.expand_path("./#{AppSettings.stock_list_name}","#{AppSettings.resource_path}")
 $all_stock_list=load_stock_list_file(table_file)
 
+
 #mkdir
 
 data_validate_path=File.expand_path("./daily_data","#{AppSettings.resource_path}")

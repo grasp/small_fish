@@ -1,6 +1,9 @@
+require File.expand_path("../../../init/small_fish_init.rb",__FILE__)
 require File.expand_path("../low_high_price_history.rb",__FILE__)
 require File.expand_path("../macd_history.rb",__FILE__)
 require File.expand_path("../volume_history.rb",__FILE__)
+
+# 初次计算的值附加
 
 def append_processed_data(symbol,price_hash,back_day)
 
@@ -14,6 +17,7 @@ def append_processed_data(symbol,price_hash,back_day)
 
   processed_data_path=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
   processed_data_file=File.new(processed_data_path,"a+")
+
   processed_data_file<<date.to_s
   processed_data_file<<"#"+result_macd_array.to_s
   processed_data_file<<"#"+low_price_array.to_s
@@ -22,6 +26,8 @@ def append_processed_data(symbol,price_hash,back_day)
   processed_data_file<<"\n"
   processed_data_file.close
 end
+
+
 
 
 def append_all_data
@@ -34,14 +40,26 @@ def append_all_data
     end
 end
 
+
+def get_diff_date(symbol)
+
+  price_hash=get_price_hash_from_history(symbol)
+  processed_data_path=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
+  file=File.new(processed_data_path)
+  puts file.readlines[-2..-1]
+  file.close
+
+
+end
+
 if $0==__FILE__
 
 	symbol="000009.sz"
-	price_hash=get_price_hash_from_history("000009.sz")
+	#price_hash=get_price_hash_from_history("000009.sz")
 
 	#append first day data 
-    append_processed_data("000009.sz",price_hash,0)
+  #  append_processed_data("000009.sz",price_hash,0)
 
-
+get_diff_date(symbol)
   
 end

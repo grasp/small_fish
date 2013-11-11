@@ -35,6 +35,8 @@ end
  [macd_hash,low_price_hash,high_price_hash,volume_hash]
 end
 
+
+
 def read_processed_data_on_backday(symbol,back_day)
   processed_file=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
   contents_array=File.read(processed_file).split("\n")

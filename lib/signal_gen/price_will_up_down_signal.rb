@@ -54,6 +54,8 @@ def generate_price_will_up_down(price_hash,back_day)
 end
 
 
+
+
 if $0==__FILE__
   	price_hash=get_price_hash_from_history("000009.sz")
     #generate_price_will_up_down(price_hash,1)
