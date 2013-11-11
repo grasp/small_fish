@@ -50,7 +50,7 @@ back_day_array.reverse.each do |back_day|
 
 #加入到文件中
 
-   signal_file<<date.to_s+result_hash.values.to_s+"\n"
+   signal_file<<date.to_s+"#"+result_hash.values.to_s+"\n"
  end
    signal_file.close
 

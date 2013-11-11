@@ -12,7 +12,8 @@ def buy_on_date(date,will_key,win_percent,win_count)
     count=0
      buy_record=File.new(File.expand_path("./buy_record/#{will_key}/#{date}_percent_#{win_percent}_count_#{win_count}.txt","#{AppSettings.resource_path}"),"w+")
 
-    $all_stock_list.keys[1..2410].each do |stock_id|
+    $all_stock_list.keys.each do |stock_id|
+      puts "handle on #{stock_id}"
  
       signal_file_path=File.expand_path("./signal/#{stock_id}.txt","#{AppSettings.resource_path}")
       signal_process_path=File.expand_path("./signal_process/two/#{will_key}/#{stock_id}.txt","#{AppSettings.resource_path}")
