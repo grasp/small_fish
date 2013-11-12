@@ -48,7 +48,7 @@ end
 if $0==__FILE__
     start=Time.now
     will_key="up_p10_after_3_day"
-   date="2013-11-08"
+   date="2013-10-31"
     index_symbol="000009.sz"
     price_hash=get_price_hash_from_history(index_symbol)
     price_array=price_hash.to_a
