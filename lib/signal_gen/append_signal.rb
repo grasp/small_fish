@@ -97,7 +97,7 @@ if $0==__FILE__
 
     #获取完成的价格hash
    # price_hash=get_price_hash_from_history(symbol)
-	#back_day_array=get_diff_date_signal(price_hash.to_a,symbol)
+	 #back_day_array=get_diff_date_signal(price_hash.to_a,symbol)
     #append_signal_on_back_day_array(symbol,price_hash.to_a,back_day_array)
     append_all_signal
 end
