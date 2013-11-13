@@ -48,6 +48,7 @@ def generate_macd_on_backday(price_array,back_day)
         
     end  #end of macd_day sum  
     average=((sum.to_f)/real_day_count).round(2)
+    raise if average==0.0
     macd_array<<average 
     end #end of one of macd day
 macd_array

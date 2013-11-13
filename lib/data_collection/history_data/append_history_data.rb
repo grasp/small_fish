@@ -30,8 +30,8 @@ end
 def append_all_history_data
    count=0
 	$all_stock_list.keys.each do |symbol|
-		count+=1
-		puts "#{symbol},count=#{count}"
+	  count+=1
+	  puts "#{symbol},count=#{count}"
 	  raw_data_path=File.expand_path("./history_daily_data_3/#{symbol}.txt","#{AppSettings.resource_path}")
 	  exsisted_data=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
 		

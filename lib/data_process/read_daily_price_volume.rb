@@ -14,8 +14,10 @@ def get_price_hash_from_history(symbol)
   daily_k_array=File.read(stock_file_path).split("\n")
 
   #最新的日子在前面
-  daily_k_array.reverse.each do |line|	   
+  daily_k_array.reverse.each do |line|	
+  next if line.nil?   
  	daily_data = line.split("#")
+  next if daily_data.size<3
 
  	#成交量为0的我们忽略不计，已经在前面处理掉了
  	#如果数据没有基于price_hash产生，就会有问题，索引的下标会不一样！！！ 	

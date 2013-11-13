@@ -47,7 +47,7 @@ def low_high_price_array_on_backdays(price_array,back_day)
         lowest_price=price_array[index][1][3] if price_array[index][1][3].to_f < lowest_price.to_f
         highest_price= price_array[index][1][3]  if highest_price.to_f<price_array[index][1][3].to_f
     end  #end of macd_day sum  
-
+    raise if lowest_price.nil?
     low_price_array<<lowest_price
     high_price_array<<highest_price
  

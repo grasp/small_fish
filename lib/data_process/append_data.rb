@@ -11,7 +11,7 @@ def append_processed_data(symbol,price_array,back_day_array)
   processed_data_file=File.new(processed_data_path,"a+")
 
   back_day_array.reverse.each do |back_day|
-    puts "handle backday=#{back_day}"
+   # puts "handle backday=#{back_day},day_zero=#{price_array[0][0]}"
     low_high=low_high_price_array_on_backdays(price_array,back_day)
 
     low_price_array=low_high[0]
@@ -20,8 +20,8 @@ def append_processed_data(symbol,price_array,back_day_array)
     result_macd_array=generate_macd_on_backday(price_array,back_day)
     volume_array=generate_volume_array_on_backday(price_array,back_day)
     date=price_array[back_day][0]
-      puts "price_array[back_day]=#{price_array[back_day]}"
-    puts "handle date=#{date}"
+     # puts "price_array[back_day]=#{price_array[back_day]}"
+    #puts "handle date=#{date}"
 
     processed_data_file<<date.to_s
     processed_data_file<<"#"+result_macd_array.to_s
@@ -39,11 +39,12 @@ def append_all_data
     $all_stock_list.keys.each do |symbol|
      processed_data_path=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
      next unless File.exists?(processed_data_path)
-
+     count+=1
+     puts "append #{symbol},count=#{count}"
     	  # price_hash=get_price_hash_from_history(symbol)
          append_diff_data(symbol)
          count+=1
-         puts "append #{symbol},count=#{count}"
+         
 
     end
 end
