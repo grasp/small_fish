@@ -38,7 +38,7 @@ def generate_win_lost(symbol,percent,number_day)
 	#percent=0.03
 	#number_day=5
 
-    win_lost_folder=File.expand_path("./win_lost/percent_#{(percent*100).to_i}_num_#{5}_days","#{AppSettings.resource_path}")
+    win_lost_folder=File.expand_path("./win_lost/percent_#{(percent*100).to_i}_num_#{number_day}_days","#{AppSettings.resource_path}")
     Dir.mkdir(win_lost_folder) unless File.exists?(win_lost_folder)
 
     file_path="#{win_lost_folder}/#{symbol}.txt"
@@ -46,7 +46,7 @@ def generate_win_lost(symbol,percent,number_day)
     win_lost_file=File.new(file_path,"w+")
 
     price_array.each_index do |back_day|
-     next if back_day <5
+     next if back_day <number_day
      date=price_array[back_day][0]
      result=generate_win_lost_on_backday(price_array,"",back_day,percent,number_day)
      win_lost_file<<"#{date}##{result}\n"
@@ -75,10 +75,9 @@ def generate_all_zuhe
 
 	percent_array.each do |percent|
 		number_day.each do |num_day|
-			#genereate_all_symbol_win_lost(percent,num_day)
+			genereate_all_symbol_win_lost(percent,num_day)
 		end
     end
-
 end
 
 
