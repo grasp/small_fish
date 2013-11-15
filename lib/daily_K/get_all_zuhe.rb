@@ -23,5 +23,5 @@ end
 
 
 if $0==__FILE__
-get_three_zuhe(10)
+  get_three_zuhe(10)
 end

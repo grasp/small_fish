@@ -46,7 +46,7 @@ end
 
 def combine_daily_data_from_sina(stock_id_array,date)
    
-    totalsize=stock_id_array.size
+  totalsize=stock_id_array.size
 	puts "stock id arrray size=#{stock_id_array.size}"
 
 	sina_symbol_array=convert_to_sina_symbol(stock_id_array)
@@ -57,7 +57,7 @@ def combine_daily_data_from_sina(stock_id_array,date)
     contents=""
     contents=File.read(File.join(daily_data_folder,daily_txt)) if File.exists?(File.join(daily_data_folder,daily_txt))
     daily_txt_file=File.new(File.join(daily_data_folder,daily_txt),"a+")
-  counter=0
+    counter=0
     sina_symbol_array.each do |stock_id|
 
        unless contents.match(stock_id)
@@ -68,9 +68,7 @@ def combine_daily_data_from_sina(stock_id_array,date)
        	puts "done for #{stock_id} #{counter.to_f/totalsize}"
        end
     end
-
     daily_txt_file.close
-
 end
 
 
@@ -86,15 +84,16 @@ if $0==__FILE__
 
 start=Time.now
 
-
-#ENV['http_proxy']="http://10.140.19.49:808"
-#ENV['https_proxy']="https://10.140.19.49:808"
-
+result=`ipconfig`
+if result.match("10.69.70.47")
+ENV['http_proxy']="http://10.140.19.49:808"
+ENV['https_proxy']="https://10.140.19.49:808"
+end
 
 if (not Time.now.saturday?) && (not Time.now.sunday?)      #=> returns a boolean value
 
   date=Time.now.to_s[0,11]
-  save_daily_data_into_one_text(date)
+ # save_daily_data_into_one_text(date)
   puts "cost =#{Time.now-start}"
 end
 end
