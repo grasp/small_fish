@@ -28,3 +28,4 @@ Dir.mkdir(data_process_path) unless File.exists?(data_process_path)
 
 data_process_path=File.expand_path("./signal","#{AppSettings.resource_path}")
 Dir.mkdir(data_process_path) unless File.exists?(data_process_path)
+

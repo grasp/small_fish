@@ -117,7 +117,7 @@ if $0==__FILE__
  start=Time.now
  #generate_win_lost_counter()
  #generate_counter_for_percent("000009.sz")
-  folder="percent_3_num_5_days"
+ folder="percent_3_num_9_days"
 # folder="percent_3_num_9_days"
  generate_all(folder)
  puts "cost=#{Time.now-start}"

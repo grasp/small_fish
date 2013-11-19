@@ -29,7 +29,7 @@ symbole_file_name=File.expand_path("./#{folder_path}/#{symbol}.txt","#{AppSettin
   puts "count=#{count}"
  download_one_stock_history_data_from_yahoo(symbol,days,folder_path)
  #等待8 second 一下，避免访问太多后，不能使用
- sleep 8
+ sleep 2
 #end
 
 end
@@ -53,18 +53,19 @@ end
 end
 
 
-
-
-
-
 #only run if test this file
 if $0 == __FILE__
 
 #download_all_symbol_into_history_data(10000)
 #download_one_stock_history_data_from_yahoo("000002.sz",10000)
 
-ENV['http_proxy']="http://10.140.19.49:808"
-ENV['https_proxy']="https://10.140.19.49:808"
-download_all_symbol_into_history_data("history_daily_data_3",10)
+result=`ipconfig`
+if result.match("10.69.70.34")
+ ENV['http_proxy']="http://10.140.19.49:808"
+ ENV['https_proxy']="https://10.140.19.49:808"
+end
+
+
+download_all_symbol_into_history_data("history_daily_data_3",7)
 
 end

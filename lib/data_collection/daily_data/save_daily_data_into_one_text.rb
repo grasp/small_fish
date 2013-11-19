@@ -85,15 +85,15 @@ if $0==__FILE__
 start=Time.now
 
 result=`ipconfig`
-if result.match("10.69.70.47")
-ENV['http_proxy']="http://10.140.19.49:808"
-ENV['https_proxy']="https://10.140.19.49:808"
+if result.match("10.69.70.34")
+ ENV['http_proxy']="http://10.140.19.49:808"
+ ENV['https_proxy']="https://10.140.19.49:808"
 end
 
 if (not Time.now.saturday?) && (not Time.now.sunday?)      #=> returns a boolean value
 
   date=Time.now.to_s[0,11]
- # save_daily_data_into_one_text(date)
+  save_daily_data_into_one_text(date)
   puts "cost =#{Time.now-start}"
 end
 end
