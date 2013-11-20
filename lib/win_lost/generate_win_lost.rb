@@ -29,6 +29,7 @@ return true_false
 end
 
 
+#产生每天的输赢记录
 def generate_win_lost(symbol,percent,number_day)
 
 	price_hash=get_price_hash_from_history(symbol)
@@ -67,6 +68,7 @@ def genereate_all_symbol_win_lost(percent,number_day)
 	end
 end
 
+#判断那些组合
 def generate_all_zuhe
 #	percent_array=[0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1]
 #	number_day=[1,2,3,4,5,6,7,8,9,10]
@@ -83,7 +85,7 @@ end
 
 if $0==__FILE__
 
-#genereate_all_symbol_win_lost(0.05,5)
-generate_all_zuhe
+genereate_all_symbol_win_lost(0.03,7)
+#generate_all_zuhe
 
 end

@@ -1,5 +1,6 @@
 require File.expand_path("../../../init/small_fish_init.rb",__FILE__)
 require 'json'
+
 def generate_win_lost_counter()
 	win_lost=File.expand_path("./win_lost","#{AppSettings.resource_path}")
 	Dir.new(win_lost).each do |folder|
@@ -7,7 +8,7 @@ def generate_win_lost_counter()
 	end
 end
 
-
+#统计输赢的信号比例
 def generate_counter_for_percent(symbol,folder)
     #folder="percent_3_num_3_days"
     signal_file=File.expand_path("./signal/#{symbol}.txt","#{AppSettings.resource_path}")
@@ -41,13 +42,13 @@ ori_array_size=signal_keys.size
  iter_array=(0..(ori_array_size-1)).to_a  
  possible_zuhe=[]
  total_size=ori_array_size
- #puts "total_size=#{total_size}"
 
 iter_array.each do |cycle|
  iter_array[cycle].upto(total_size-1).each do |i|
  	possible_zuhe<<[cycle,i]
  end
 end
+
 count=0
 win_hash=Hash.new{0}
 lost_hash=Hash.new{0}
@@ -117,7 +118,7 @@ if $0==__FILE__
  start=Time.now
  #generate_win_lost_counter()
  #generate_counter_for_percent("000009.sz")
- folder="percent_3_num_9_days"
+ folder="percent_3_num_7_days"
 # folder="percent_3_num_9_days"
  generate_all(folder)
  puts "cost=#{Time.now-start}"
