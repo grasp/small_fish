@@ -42,11 +42,11 @@ def generate_all
         daily_k_path=File.expand_path("./daily_k/#{symbol}.txt","#{AppSettings.resource_path}")
         price_file=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
        # if (not File.exists?(daily_k_path)) && File.exists?(File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}"))
-           unless File.exists?(daily_k_path)
+           #unless File.exists?(daily_k_path)
              if File.exists?(price_file)
                generate_daily_k_signal_one_day(symbol)
                puts "#{symbol},#{count+=1}"
-           end
+           #end
         end
     end
 end

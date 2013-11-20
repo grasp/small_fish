@@ -70,10 +70,12 @@ def statistic_for_all(folder)
 
     daily_k_file=File.expand_path("./daily_k/#{symbol}.txt","#{AppSettings.resource_path}")
     win_lost_statistic=File.expand_path("./daily_k_statistic/#{folder}/#{symbol}.txt","#{AppSettings.resource_path}")
-    if (not  File.exists?(win_lost_statistic)) && File.exists?(daily_k_file)
+  #unless  File.exists?(win_lost_statistic)
+     if File.exists?(daily_k_file)
        statistic_daily_k(symbol,folder)
        puts "#{symbol},#{count+=1}"
     end
+  #end
   end
 end
 
