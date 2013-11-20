@@ -3,6 +3,7 @@ require File.expand_path("../../signal_process/cal_common.rb",__FILE__)
 require File.expand_path("../../signal_process/get_zuhe.rb",__FILE__)
 require File.expand_path("../../signal_process/read_signal_process.rb",__FILE__)
 require File.expand_path("../../data_process/read_daily_k.rb",__FILE__)
+
 def buy_by_percent(symbol,day_signal,date,history_percent_hash,is_up)
    index_array=get_all_possible_zuhe2(day_signal.size)
 record_file=File.new("guess_result.txt","a+")

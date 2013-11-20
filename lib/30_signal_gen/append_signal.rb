@@ -4,7 +4,7 @@ require File.expand_path("../low_price_signal.rb",__FILE__)
 require File.expand_path("../high_price_signal.rb",__FILE__)
 require File.expand_path("../open_signal.rb",__FILE__)
 require File.expand_path("../volume_signal.rb",__FILE__)
-require File.expand_path("../../data_process/read_daily_price_volume.rb",__FILE__)
+require File.expand_path("../../20_data_process/read_daily_price_volume.rb",__FILE__)
 
 
 #back day 0表示最新的一天

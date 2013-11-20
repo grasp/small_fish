@@ -1,4 +1,4 @@
-require File.expand_path("../../data_process/read_daily_k.rb",__FILE__)
+require File.expand_path("../../20_data_process/read_daily_k.rb",__FILE__)
 #TBD 作为买卖信号之一
 def price_already_up_down(price_hash,back_day)
 

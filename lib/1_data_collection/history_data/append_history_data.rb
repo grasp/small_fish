@@ -13,6 +13,7 @@ def append_history_data(symbol)
 	last_line=temp_file.readlines[-2..-1].to_s
 
    last_date=last_line.match(/\d\d\d\d-\d\d-\d\d/).to_s
+   raise if raw_data_contents.to_s.match(last_date)
    
    raw_data_contents.reverse.each do |line|
 		  a=line.match(/\d\d\d\d-\d\d-\d\d/).to_s

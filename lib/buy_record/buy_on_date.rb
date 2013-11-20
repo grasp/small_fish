@@ -1,7 +1,7 @@
 
 require  File.expand_path("../../signal_process/read_generated_signal.rb",__FILE__)
 require  File.expand_path("../read_processed_signal.rb",__FILE__)
-require File.expand_path("../../data_process/read_daily_price_volume.rb",__FILE__)
+require File.expand_path("../../20_data_process/read_daily_price_volume.rb",__FILE__)
 
 def buy_by_up_p10_after_several_days
 
@@ -48,7 +48,7 @@ end
 if $0==__FILE__
     start=Time.now
     will_key="up_p10_after_3_day"
-   date="2013-11-11"
+   date="2013-11-19"
     index_symbol="000009.sz"
     price_hash=get_price_hash_from_history(index_symbol)
     price_array=price_hash.to_a

@@ -1,5 +1,5 @@
 require File.expand_path("../read_data_process.rb",__FILE__)
-require File.expand_path("../../data_process/read_daily_price_volume.rb",__FILE__)
+require File.expand_path("../../20_data_process/read_daily_price_volume.rb",__FILE__)
 
 def low_price_signal(full_low_price_array,full_price_array,back_day)
 	low_price_signal_hash=Hash.new

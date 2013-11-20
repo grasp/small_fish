@@ -92,7 +92,7 @@ end
 
 if (not Time.now.saturday?) && (not Time.now.sunday?)      #=> returns a boolean value
 
-  date=Time.now.to_s[0,11]
+  date=Time.now.to_s[0..9]
   save_daily_data_into_one_text(date)
   puts "cost =#{Time.now-start}"
 end

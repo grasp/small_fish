@@ -1,6 +1,6 @@
 
 require File.expand_path("../read_data_process.rb",__FILE__)
-require File.expand_path("../../data_process/read_daily_price_volume.rb",__FILE__)
+require File.expand_path("../../20_data_process/read_daily_price_volume.rb",__FILE__)
 
 def high_price_signal(full_high_price_array,full_price_array,back_day)
 	high_price_signal_hash=Hash.new

@@ -43,9 +43,6 @@ def append_all_data
      puts "append #{symbol},count=#{count}"
     	  # price_hash=get_price_hash_from_history(symbol)
          append_diff_data(symbol)
-         count+=1
-         
-
     end
 end
 
