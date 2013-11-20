@@ -66,6 +66,6 @@ if result.match("10.69.70.34")
 end
 
 
-download_all_symbol_into_history_data("history_daily_data_3",8)
+download_all_symbol_into_history_data("history_daily_data_3",7)
 
 end
