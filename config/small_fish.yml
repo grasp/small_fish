@@ -3,7 +3,7 @@ app_name: "small_fish"
 #resource_path: "c:/users/hunterwork/resources"
 #resource_path: "g:/resources"
 #resource_path: "d:/resources"
-resource_path: "g:/resources"
+resource_path: "e:/resources"
 stock_list_name: "stock_list/stock_table_2013_10_01.txt"
 
 macd_1_day: 1
