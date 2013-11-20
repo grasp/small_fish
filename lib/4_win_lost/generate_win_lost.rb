@@ -1,5 +1,5 @@
 
-require File.expand_path("../../data_process/read_daily_price_volume.rb",__FILE__)
+require File.expand_path("../../20_data_process/read_daily_price_volume.rb",__FILE__)
 
 #判断number day内将会涨跌
 def generate_win_lost_on_backday(price_array,will_key,back_day,percent, number_day)
@@ -85,7 +85,7 @@ end
 
 if $0==__FILE__
 
-genereate_all_symbol_win_lost(0.03,7)
+genereate_all_symbol_win_lost(0.01,1)
 #generate_all_zuhe
 
 end

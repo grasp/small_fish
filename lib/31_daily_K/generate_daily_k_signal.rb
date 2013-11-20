@@ -1,4 +1,4 @@
-require File.expand_path("../../data_process/read_daily_price_volume.rb",__FILE__)
+require File.expand_path("../../20_data_process/read_daily_price_volume.rb",__FILE__)
 #hash 的值为几个基本数据，依次为开盘，最高，最低，收盘，成交量
 def generate_daily_k_signal_one_day(symbol)
     price_hash=get_price_hash_from_history(symbol)
@@ -6,7 +6,7 @@ def generate_daily_k_signal_one_day(symbol)
     daily_k_file=File.new(daily_k_path,"w+")
     
     price_hash.each do |date,array|
-    	next if array[0]==0
+    	next if array[0].to_f==0.0
     	next if array.size<3
 
      	 win=array[3].to_f-array[0].to_f
@@ -36,8 +36,22 @@ def generate_daily_k_signal_one_day(symbol)
    daily_k_file.close
 end
 
-
+def generate_all
+    count=0
+    $all_stock_list.keys.each do |symbol|
+        daily_k_path=File.expand_path("./daily_k/#{symbol}.txt","#{AppSettings.resource_path}")
+        price_file=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
+       # if (not File.exists?(daily_k_path)) && File.exists?(File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}"))
+           unless File.exists?(daily_k_path)
+             if File.exists?(price_file)
+               generate_daily_k_signal_one_day(symbol)
+               puts "#{symbol},#{count+=1}"
+           end
+        end
+    end
+end
 
 if $0==__FILE__
-	 generate_daily_k_signal_one_day("000009.sz")
+	 #generate_daily_k_signal_one_day("000009.sz")
+     generate_all
 end

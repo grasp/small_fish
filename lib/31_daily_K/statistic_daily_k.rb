@@ -64,12 +64,26 @@ s_file.close
 
 end
 
+def statistic_for_all(folder)
+   count=0
+  $all_stock_list.keys.each do |symbol|
+
+    daily_k_file=File.expand_path("./daily_k/#{symbol}.txt","#{AppSettings.resource_path}")
+    win_lost_statistic=File.expand_path("./daily_k_statistic/#{folder}/#{symbol}.txt","#{AppSettings.resource_path}")
+    if (not  File.exists?(win_lost_statistic)) && File.exists?(daily_k_file)
+       statistic_daily_k(symbol,folder)
+       puts "#{symbol},#{count+=1}"
+    end
+  end
+end
+
 if $0==__FILE__
  start=Time.now
  #generate_win_lost_counter()
  #generate_counter_for_percent("000009.sz")
  folder="percent_1_num_1_days"
  # folder="percent_3_num_9_days"
- statistic_daily_k("000009.sz",folder)
+# statistic_daily_k("000009.sz",folder)
+ statistic_for_all(folder)
  puts "cost=#{Time.now-start}"
 end
