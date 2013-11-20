@@ -1,6 +1,7 @@
 
 require File.expand_path("../../../../init/small_fish_init.rb",__FILE__)
 require "json"
+
 def append_daily_data_into_history(date)
   sina_data_hash=Hash.new
   yahoo_data_hash=Hash.new
@@ -35,12 +36,17 @@ def append_daily_data_into_history(date)
   	yahoo_data_hash[new_key]=value
   end
 
-
+    new_array=[]
     yahoo_data_hash.each do |key,value|
     	symbol=key
-      new_array=value
-      new_array[4]=((value[4].to_i)*100).to_s #sina and yahoo is different
-    #	puts "start #{symbol},#{value[4]},#{new_array[4]}"
+      #print value.to_s+"\n"
+      new_array[0]=value[0]
+      new_array[1]=value[1]
+      new_array[3]=value[3]
+      new_array[4]=value[4]
+      new_array[6]=value[6]
+      new_array[5]=((value[5].to_i)*100).to_s #sina and yahoo is different
+    	puts "start #{symbol},#{value[5]},#{new_array[5]},#{((value[5].to_i)*100).to_s}"
     	history_data_path=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
 
     	#防止重复写入同一天数据到历史文件
@@ -63,7 +69,7 @@ end
 
 if $0==__FILE__
     start=Time.now
-	#  append_daily_data_into_history("2013-11-20")
+	 # append_daily_data_into_history("2013-11-08")
     appened_today_data
     puts "cost #{Time.now-start}"
 end
