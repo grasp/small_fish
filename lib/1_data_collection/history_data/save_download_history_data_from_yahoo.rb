@@ -51,7 +51,23 @@ end
 end
 
 end
+ #计算day1和day2相差的天数，可以得到我们的backdays， 为计算某个区间的盈利测试
+def get_diff_day(day1,day2)
+     
+    day_array1=day1.split("-")  
+  
+    day2_time= Time.new(day_array2[0],day_array2[1],day_array2[2])
+  
+    diff_time=day2_time-day1_time
+   
+    puts (diff_time/(60*60*24)).to_i
+    (diff_time/(60*60*24)).to_i    
+end
 
+def smart_download_history
+
+  
+end
 
 #only run if test this file
 if $0 == __FILE__
@@ -64,8 +80,8 @@ if result.match("10.69.70.34")
  ENV['http_proxy']="http://10.140.19.49:808"
  ENV['https_proxy']="https://10.140.19.49:808"
 end
+start=Time.now
 
-
-download_all_symbol_into_history_data("history_daily_data_3",7)
-
+download_all_symbol_into_history_data("history_daily_data_3",13)
+puts  "cost #{Time.now-start}"
 end
