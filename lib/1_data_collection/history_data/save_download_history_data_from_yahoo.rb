@@ -53,6 +53,7 @@ end
 end
 
 
+#TBD 需要区分每次下载的内容吗？避免重复下载？
 def smart_download_history
   today=Time.now.to_s[0..9].to_s
   last_date_1=get_last_date_on_daily_k("000009.sz")

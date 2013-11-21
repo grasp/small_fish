@@ -4,6 +4,7 @@ require File.expand_path("../../1_data_collection/daily_data/append_daily_data_t
 require File.expand_path("../../20_data_process/append_data.rb",__FILE__)
 require File.expand_path("../../30_signal_gen/append_signal.rb",__FILE__)
 
+#需要对其这几个文件的最后一行的日期才可以做以下的操作，需要做更多的健壮性代码
 def daily_data_cron
 
 save_today_daily_data

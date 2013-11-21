@@ -30,6 +30,13 @@ def get_last_date_on_daily_k(symbol)
 	last_date.to_s
 end
 
+def get_last_date_on_processed(symbol)
+end
+
+def get_last_signal_date(symbol)
+  
+end
+
 
 if $0==__FILE__
 	get_last_date_on_daily_k("000010.sz")
