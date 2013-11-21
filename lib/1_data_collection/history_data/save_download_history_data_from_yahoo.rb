@@ -1,5 +1,5 @@
 require File.expand_path("../../../../init/small_fish_init.rb",__FILE__)
-
+ require File.expand_path("../../../0_common/common.rb",__FILE__)
 
 def download_one_stock_history_data_from_yahoo(symbol,days,folder_path)
 
@@ -51,22 +51,16 @@ end
 end
 
 end
- #计算day1和day2相差的天数，可以得到我们的backdays， 为计算某个区间的盈利测试
-def get_diff_day(day1,day2)
-     
-    day_array1=day1.split("-")  
-  
-    day2_time= Time.new(day_array2[0],day_array2[1],day_array2[2])
-  
-    diff_time=day2_time-day1_time
-   
-    puts (diff_time/(60*60*24)).to_i
-    (diff_time/(60*60*24)).to_i    
-end
+
 
 def smart_download_history
+  today=Time.now.to_s[0..9].to_s
+  last_date_1=get_last_date_on_daily_k("000009.sz")
+ # last_date_2=get_last_date_on_daily_k("000008.sz")
 
-  
+  diff_day= get_diff_day(today,last_date_1)
+  download_all_symbol_into_history_data("history_daily_data_3",diff_day)
+
 end
 
 #only run if test this file
@@ -82,6 +76,8 @@ if result.match("10.69.70.34")
 end
 start=Time.now
 
-download_all_symbol_into_history_data("history_daily_data_3",13)
+#download_all_symbol_into_history_data("history_daily_data_3",13)
+
+smart_download_history
 puts  "cost #{Time.now-start}"
 end

@@ -34,17 +34,6 @@ end
     processed_data_file.close
 end
 
-def append_all_data
-    count=0
-    $all_stock_list.keys.each do |symbol|
-     processed_data_path=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
-     next unless File.exists?(processed_data_path)
-     count+=1
-     puts "append #{symbol},count=#{count}"
-    	  # price_hash=get_price_hash_from_history(symbol)
-         append_diff_data(symbol)
-    end
-end
 
 
 def get_diff_date(price_array,symbol)
@@ -78,6 +67,20 @@ def append_diff_data(symbol)
   append_processed_data(symbol,price_array,back_day_array)
 
 end
+
+def append_all_data_process
+    count=0
+    $all_stock_list.keys.each do |symbol|
+     target_file=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
+     next unless File.exists?(target_file)
+
+     count+=1
+     puts "append #{symbol},count=#{count}"
+        # price_hash=get_price_hash_from_history(symbol)
+         append_diff_data(symbol)
+    end
+end
+
 
 if $0==__FILE__
 

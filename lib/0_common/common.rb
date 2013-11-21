@@ -3,14 +3,18 @@
  #计算day1和day2相差的天数，可以得到我们的backdays， 为计算某个区间的盈利测试
 def get_diff_day(day1,day2)
      
-    day_array1=day1.split("-")  
-  
-    day2_time= Time.new(day_array2[0],day_array2[1],day_array2[2])
-  
-    diff_time=day2_time-day1_time
-   
+   day_array1=day1.split("-")
+   day_array2=  day2.split("-")
+
+   # puts "day1=#{day1},day2=#{day2}"
+    day1_time=Time.new(day_array1[0],day_array1[1],day_array1[2])
+    day2_time=Time.new(day_array2[0],day_array2[1],day_array2[2])
+
+  diff_time=(day1_time-day2_time).abs
+
+ # puts "diff_time=#{diff_time}"
     puts (diff_time/(60*60*24)).to_i
-    (diff_time/(60*60*24)).to_i    
+    (diff_time/(60*60*24)).to_i.abs  
 end
 
 
@@ -23,7 +27,7 @@ def get_last_date_on_daily_k(symbol)
     raise if last_date.nil?
     temp_file.close
     puts "last_date=#{last_date}"
-	last_date
+	last_date.to_s
 end
 
 

@@ -13,14 +13,14 @@ def append_history_data(symbol)
 	last_line=temp_file.readlines[-2..-1].to_s
 
    last_date=last_line.match(/\d\d\d\d-\d\d-\d\d/).to_s
-   raise if raw_data_contents.to_s.match(last_date)
+   #raise if raw_data_contents.to_s.match(last_date)
    
    raw_data_contents.reverse.each do |line|
 		  a=line.match(/\d\d\d\d-\d\d-\d\d/).to_s
 		   result=line.split(",")
     		result.shift(1)
     		#puts "result=#{result}"
-    		temp_file<<result.join("#") +"\n" if (not exsisted_data_contents.match(a)) && result.size>3
+    		temp_file<<result.join("#") +"\n" if (not exsisted_data_contents.match(a)) && result.size>3 #防止重复记录
 	end
 
 		temp_file.close
@@ -45,5 +45,6 @@ end
 
 if $0==__FILE__
 
-append_all_history_data
+#append_all_history_data
+append_history_data("000009.sz")
 end

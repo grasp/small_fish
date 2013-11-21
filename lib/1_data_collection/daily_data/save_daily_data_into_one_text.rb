@@ -78,6 +78,16 @@ def save_daily_data_into_one_text(date)
 	 combine_daily_data_from_sina($all_stock_list.keys,date)
 end
 
+def save_today_daily_data
+  date=Time.now.to_s[0..9]
+  target_file=File.expand_path("./daily_data/#{date}.txt","#{AppSettings.resource_path}")
+
+  unless File.exists?(target_file)
+     save_daily_data_into_one_text(date)
+  end
+
+end
+
 
 
 if $0==__FILE__

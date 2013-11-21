@@ -61,9 +61,19 @@ def append_daily_data_into_history(date)
 
 end
 
-def appened_today_data
+def appened_today_daily_data
   today=Time.now.to_s[0..9]
+  #避免重复导入，先查看下最新日期
+  last_date=get_last_date_on_daily_k("000009.sz")
+  if last_date==today
+    return -1
+  end
+
+  Time.now.monday? ? max_diff_day=3 : max_diff_day=1
+  return -1 if get_diff_day(today,last_date) > max_diff_day
+
   append_daily_data_into_history(today)
+  return 0
 end
 
 
