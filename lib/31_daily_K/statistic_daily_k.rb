@@ -70,7 +70,7 @@ def statistic_for_all(folder)
 
     daily_k_file=File.expand_path("./daily_k/#{symbol}.txt","#{AppSettings.resource_path}")
     win_lost_statistic=File.expand_path("./daily_k_statistic/#{folder}/#{symbol}.txt","#{AppSettings.resource_path}")
-  #unless  File.exists?(win_lost_statistic)
+    #unless  File.exists?(win_lost_statistic)
      if File.exists?(daily_k_file)
        statistic_daily_k(symbol,folder)
        puts "#{symbol},#{count+=1}"
@@ -83,7 +83,7 @@ if $0==__FILE__
  start=Time.now
  #generate_win_lost_counter()
  #generate_counter_for_percent("000009.sz")
- folder="percent_1_num_1_days"
+ folder="percent_3_num_1_days"
  # folder="percent_3_num_9_days"
 # statistic_daily_k("000009.sz",folder)
  statistic_for_all(folder)
