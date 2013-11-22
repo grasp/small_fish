@@ -1,8 +1,23 @@
 
 require File.expand_path("../../../../init/small_fish_init.rb",__FILE__)
+ require File.expand_path("../../../0_common/common.rb",__FILE__)
 require "json"
 
 def append_daily_data_into_history(date)
+  #检查日期对不对
+   last_date1=get_last_date_on_daily_k("000009.sz")
+   last_date2=get_last_date_on_daily_k("000008.sz")
+   last_date=""
+   last_date1<last_date2 ? last_date=last_date1 : last_date=last_date2
+
+  if last_date==date
+    return -1
+  end
+
+  Time.now.monday? ? max_diff_day=3 : max_diff_day=1
+  return -1 if get_diff_day(date,last_date) > max_diff_day
+
+
   sina_data_hash=Hash.new
   yahoo_data_hash=Hash.new
  # folder_path=File.expand_path("./daily_data/#{date}","#{AppSettings.resource_path}")
@@ -80,6 +95,7 @@ end
 if $0==__FILE__
     start=Time.now
 	 # append_daily_data_into_history("2013-11-08")
-    appened_today_data
+    #appened_today_data
+      append_daily_data_into_history("2013-11-21")
     puts "cost #{Time.now-start}"
 end

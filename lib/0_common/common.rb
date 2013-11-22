@@ -13,7 +13,7 @@ def get_diff_day(day1,day2)
   diff_time=(day1_time-day2_time).abs
 
  # puts "diff_time=#{diff_time}"
-    puts (diff_time/(60*60*24)).to_i
+   # puts (diff_time/(60*60*24)).to_i
     (diff_time/(60*60*24)).to_i.abs  
 end
 
@@ -22,11 +22,11 @@ def get_last_date_on_daily_k(symbol)
    source_file=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
     temp_file=File.new(source_file,"a+")
     last_line=temp_file.readlines[-1].to_s
-    puts "last_line=#{last_line}"
+   # puts "last_line=#{last_line}"
     last_date=last_line.match(/\d\d\d\d-\d\d-\d\d/)
     raise if last_date.nil?
     temp_file.close
-    puts "last_date=#{last_date}"
+   # puts "last_date=#{last_date}"
 	last_date.to_s
 end
 
@@ -34,7 +34,7 @@ def get_last_date_on_processed(symbol)
 end
 
 def get_last_signal_date(symbol)
-  
+
 end
 
 

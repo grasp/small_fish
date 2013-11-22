@@ -45,6 +45,6 @@ end
 
 if $0==__FILE__
 
-#append_all_history_data
-append_history_data("000009.sz")
+append_all_history_data
+#append_history_data("000009.sz")
 end

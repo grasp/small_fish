@@ -28,7 +28,7 @@ if $0==__FILE__
 	count=0
 	$all_stock_list.keys.each do |symbol|
 	 count+=1
-     delete_last_line_for_history_data(symbol,"2013-11-08")
+     delete_last_line_for_history_data(symbol,"2013-11-21")
      puts " #{symbol},#{count}"
     end
 	
