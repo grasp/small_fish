@@ -31,7 +31,7 @@ def append_daily_data_into_history(date)
   count=0
   contents_array.each do |daily_data|
     count+=1
-    puts "count=#{count}"
+   # puts "count=#{count}"
   	result=daily_data.split("#")
   	#result[0] 是代号
     #print result.to_s+"\n"
@@ -57,18 +57,19 @@ def append_daily_data_into_history(date)
       #print value.to_s+"\n"
       new_array[0]=value[0]
       new_array[1]=value[1]
+      new_array[2]=value[2]
       new_array[3]=value[3]
       new_array[4]=value[4]
       new_array[6]=value[6]
       new_array[5]=((value[5].to_i)*100).to_s #sina and yahoo is different
-    	puts "start #{symbol},#{value[5]},#{new_array[5]},#{((value[5].to_i)*100).to_s}"
+    #	puts "start #{symbol},#{value[5]},#{new_array[5]},#{((value[5].to_i)*100).to_s}"
     	history_data_path=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
 
     	#防止重复写入同一天数据到历史文件
     if File.exists?(history_data_path)
     	unless File.read(history_data_path).match(value[0])
     	  history_data_file=File.new(history_data_path,"a+")
-    	  history_data_file<<new_array.join("#")+"\n"
+    	  history_data_file<<new_array.join("#")+"\n" unless (new_array[5]==0||new_array[0]==0)#停牌的自动不写进入
     	  history_data_file.close
       end
     end

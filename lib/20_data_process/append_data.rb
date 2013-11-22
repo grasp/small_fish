@@ -22,6 +22,7 @@ def append_processed_data(symbol,price_array,back_day_array)
     date=price_array[back_day][0]
      # puts "price_array[back_day]=#{price_array[back_day]}"
     #puts "handle date=#{date}"
+    #如果已经附加过了，就不要再附加了TBD
 
     processed_data_file<<date.to_s
     processed_data_file<<"#"+result_macd_array.to_s
@@ -72,7 +73,7 @@ def append_all_data_process
     count=0
     $all_stock_list.keys.each do |symbol|
      target_file=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
-     next unless File.exists?(target_file)
+     next unless File.exists?(target_file) #如果原来没有存在，附加就会失败TBD
 
      count+=1
      puts "append #{symbol},count=#{count}"
