@@ -5,6 +5,7 @@ app_name: "small_fish"
 #resource_path: "d:/resources"
 resource_path: "e:/resources"
 stock_list_name: "stock_list/stock_table_2013_10_01.txt"
+log_path: "e:/log/small_fish.log"
 
 macd_1_day: 1
 macd_2_day: 2

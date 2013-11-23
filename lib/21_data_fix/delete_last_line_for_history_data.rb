@@ -24,12 +24,34 @@ def delete_last_line_for_history_data(symbol,date)
   end
 end
 
+
+def delete_lines_greater_then_date(symbol,date)
+    symbol_file=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
+    
+     if File.exists?(symbol_file)
+       temp=File.read(symbol_file).split("\n")
+       temp_file=File.new(symbol_file,"w+")
+       temp.each do |line|
+        old_date=line.split("#")[0]
+        temp_file<<line+"\n" if old_date<=date
+       end 
+
+       temp_file.close
+     end
+end
+
+def delete_all_lines_greater_than_date(date)
+   $all_stock_list.keys.each do |symbol|
+     delete_lines_greater_then_date(symbol,"2013-11-20")
+    end  
+end
+
 if $0==__FILE__
 	count=0
 	$all_stock_list.keys.each do |symbol|
 	 count+=1
-     delete_last_line_for_history_data(symbol,"2013-11-22")
+    # delete_last_line_for_history_data(symbol,"2013-11-22")
+     delete_lines_greater_then_date(symbol,"2013-11-01")
      puts " #{symbol},#{count}"
-    end
-	
+    end	
 end

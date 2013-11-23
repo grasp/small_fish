@@ -67,13 +67,13 @@ def append_daily_data_into_history(date)
 
     	#防止重复写入同一天数据到历史文件
     if File.exists?(history_data_path)
-    	unless File.read(history_data_path).match(value[0])
+    	unless File.read(history_data_path).match(value[0]) #原来的文件不包含这个日期
     	  history_data_file=File.new(history_data_path,"a+")
     	  history_data_file<<new_array.join("#")+"\n" unless (new_array[5]==0||new_array[0]==0)#停牌的自动不写进入
     	  history_data_file.close
       end
     end
-    end
+    end #end of yahoo data hash 
 
 end
 

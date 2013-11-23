@@ -1,10 +1,12 @@
 require File.expand_path("../config_load.rb",__FILE__)
 require File.expand_path("../stock_list_init.rb",__FILE__)
-
+require "logger"
 #load  all stock list
 table_file=File.expand_path("./#{AppSettings.stock_list_name}","#{AppSettings.resource_path}")
 $all_stock_list=load_stock_list_file(table_file)
 
+$logger=Logger.new("#{AppSettings.log_path}",'daily')
+$logger.level=Logger::INFO
 
 #mkdir
 

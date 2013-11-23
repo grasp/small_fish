@@ -47,7 +47,7 @@ end
 def combine_daily_data_from_sina(stock_id_array,date)
    
   totalsize=stock_id_array.size
-	puts "stock id arrray size=#{stock_id_array.size}"
+	$logger.info("start download sina data,stock id arrray size=#{stock_id_array.size}")
 
 	sina_symbol_array=convert_to_sina_symbol(stock_id_array)
    
@@ -56,16 +56,24 @@ def combine_daily_data_from_sina(stock_id_array,date)
     daily_txt="#{date}.txt"
     contents=""
     contents=File.read(File.join(daily_data_folder,daily_txt)) if File.exists?(File.join(daily_data_folder,daily_txt))
-    daily_txt_file=File.new(File.join(daily_data_folder,daily_txt),"a+")
+    daily_txt_file=File.new(File.join(daily_data_folder,daily_txt),"w+")
     counter=0
     sina_symbol_array.each do |stock_id|
-
+       counter+=1
        unless contents.match(stock_id)
-       	counter+=1
+     
+        begin
        	yahoo_array=get_sina_real_time_data_without_proxy(stock_id)
+       rescue Exception
+        sleep 300
+        yahoo_array=get_sina_real_time_data_without_proxy(stock_id)
+        puts ("sina reject to download ,try once again")
+        $logger.error("sina reject to download ,try once again")
+       end
+        sleep 1
        	yahoo_array.unshift(stock_id)
        	daily_txt_file<<yahoo_array.join("#")+"\n"
-       	puts "done for #{stock_id} #{counter.to_f/totalsize}"
+       	puts "#{counter},done for #{stock_id} #{(counter.to_f/totalsize).round(1)}"
        end
     end
     daily_txt_file.close
@@ -82,9 +90,9 @@ def save_today_daily_data
   date=Time.now.to_s[0..9]
   target_file=File.expand_path("./daily_data/#{date}.txt","#{AppSettings.resource_path}")
 
-  unless File.exists?(target_file)
+  #unless File.exists?(target_file)
      save_daily_data_into_one_text(date)
-  end
+  #end
 
 end
 
