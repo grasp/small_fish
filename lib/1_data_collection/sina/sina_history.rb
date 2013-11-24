@@ -5,9 +5,8 @@ require File.expand_path("../../../../init/small_fish_init.rb",__FILE__)
 def download_history(symbol, start_date,end_date)
 
 	url="http://biz.finance.sina.com.cn/stock/flash_hq/kline_data.php?&rand=random(10000)&symbol=#{symbol}&end_date=#{end_date}&begin_date=#{start_date}&type=plain"
-
  	response= Net::HTTP.get("biz.finance.sina.com.cn","/stock/flash_hq/kline_data.php?&rand=random(10000)&symbol=#{symbol}&end_date=#{end_date}&begin_date=#{start_date}&type=plain" )
-    response.split(",")
+  response.split(",")
 end
 
 def download_all_history_on_day(date)

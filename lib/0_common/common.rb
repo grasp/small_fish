@@ -19,7 +19,22 @@ end
 
 
 def get_last_date_on_daily_k(symbol)
-   source_file=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
+    source_file=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
+    temp_file=File.new(source_file,"a+")
+    last_line=temp_file.readlines[-1].to_s
+   # puts "last_line=#{last_line}"
+    last_date=last_line.match(/\d\d\d\d-\d\d-\d\d/)
+    if last_date.nil?
+      puts "symbol=#{symbol}"
+      raise 
+    end
+    temp_file.close
+   # puts "last_date=#{last_date}"
+	last_date.to_s
+end
+
+def get_last_date_on_file(file)
+    source_file=file
     temp_file=File.new(source_file,"a+")
     last_line=temp_file.readlines[-1].to_s
    # puts "last_line=#{last_line}"
@@ -27,7 +42,7 @@ def get_last_date_on_daily_k(symbol)
     raise if last_date.nil?
     temp_file.close
    # puts "last_date=#{last_date}"
-	last_date.to_s
+     last_date.to_s
 end
 
 def get_last_date_on_processed(symbol)

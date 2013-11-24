@@ -44,7 +44,7 @@ end
 
 #如果还没下载，或者下载文件有问题，准备再重新下载
 if (not File.exists?(target_file)) && (Time.now.hour<8 || Time.now.hour>15 || Time.now.sunday? || Time.now.saturday?)
-  save_today_daily_data
+  save_today_daily_data #下载日线数据到一个文件
 
 #最多下载四次
 3.downto(0).each do |i|
