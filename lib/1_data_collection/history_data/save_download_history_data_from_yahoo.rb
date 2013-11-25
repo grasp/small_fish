@@ -23,6 +23,8 @@ def download_all_symbol_into_history_data(folder_path,days)
 count=0
 $all_stock_list.keys.each do |symbol|
 count+=1
+real_folder_path=File.expand_path("./#{folder_path}","#{AppSettings.resource_path}")
+Dir.mkdir(real_folder_path) unless File.exists?(real_folder_path)
 #symbole_file_name=File.expand_path("../../../../resources/history_daily_data_2/#{symbol}.txt",__FILE__)
 symbole_file_name=File.expand_path("./#{folder_path}/#{symbol}.txt","#{AppSettings.resource_path}")
 #unless File.exists?(symbole_file_name)

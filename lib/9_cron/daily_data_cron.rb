@@ -11,8 +11,6 @@ def daily_data_download_cron
 
 	#再次验证数据一致性，如果还没有成功，试着再重新下载一次
 
-
-
 end
 
 def append_daily_data_cron
@@ -43,5 +41,5 @@ def daily_signal_cron
 end
 
 if $0==__FILE__
-
+  daily_data_download_cron
 end

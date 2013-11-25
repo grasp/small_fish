@@ -5,19 +5,23 @@ def delete_last_line_with_date(target_file,date)
   last_line=String.new
 
   if File.exists?(target_file)
+    #puts target_file
    a=File.read(target_file).split("\n")
    last_line=a.last.to_s
    raise if last_line.nil?
+   if last_line.match(date) #最后一行有想删除的数据
+     a.delete(last_line) 
+     #puts "delete last line"
+   end
 
-   a.delete(last_line) if last_line.match(date) #最后一行有想删除的数据
    file=File.new(target_file,"w+")
    a.each do |line|
     file<<line+"\n"
    end
    file.close
   end
-  end
 end
+
 
 #处理单个 symbol的price文件
 def delete_last_line_for_price(symbol,date)
