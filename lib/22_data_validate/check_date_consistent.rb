@@ -23,8 +23,6 @@ def check_price_file_consistent
 end
 
 
-
-
 def check_data_process_file_consistent_for_last_line
 	unconsistent_counter=0
     counter_hash=Hash.new{0}

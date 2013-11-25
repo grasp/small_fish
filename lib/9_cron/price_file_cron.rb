@@ -1,9 +1,9 @@
 require File.expand_path("../../../init/small_fish_init.rb",__FILE__)
+require File.expand_path("../../0_common/common.rb",__FILE__)
 require File.expand_path("../../21_data_fix/delete_last_line.rb",__FILE__)
 require File.expand_path("../../1_data_collection/history_data/save_download_history_data_from_yahoo.rb",__FILE__)
 require File.expand_path("../../1_data_collection/daily_data/save_daily_data_into_one_text.rb",__FILE__)
 require File.expand_path("../../22_data_validate/check_date_consistent.rb",__FILE__)
-require File.expand_path("../../0_common/common.rb",__FILE__)
 
 def price_file_data_fix_and_download
 	start=Time.now
