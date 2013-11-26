@@ -15,7 +15,7 @@ def check_price_file_consistent
 	end
 	
 	new_counter_array=counter_hash.sort_by{|key,value| key}.reverse
-	$logger.info(" first time price file consistent =#{new_counter_array}")
+	$logger.info(" price file  consistent check =#{new_counter_array}")
 	#[["2013-11-22", 514], ["2013-11-21", 1919], ["2013-11-15", 1], ["2013-11-01", 25
    #], ["2013-08-14", 1], ["2013-07-18", 1], ["2013-06-06", 1], ["2013-03-13", 1], [
    # "2012-10-15", 1], ["2012-03-06", 1]]
@@ -33,9 +33,10 @@ def check_data_process_file_consistent_for_last_line
 	  	 counter_hash[last_date]+=1
 	  end
 	end
-	$logger.info("data process consistent =#{counter_hash}")
-    puts counter_hash
-	puts counter_hash.size
+	new_counter_array=counter_hash.sort_by{|key,value| key}.reverse
+	$logger.info("data process consistent result =#{new_counter_array}")
+
+	return new_counter_array
 end
 
 def check_signal_gen_file_consistent_for_last_line

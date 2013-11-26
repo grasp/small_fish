@@ -5,10 +5,12 @@ require "logger"
 table_file=File.expand_path("./#{AppSettings.stock_list_name}","#{AppSettings.resource_path}")
 $all_stock_list=load_stock_list_file(table_file)
 
+Dir.mkdir(AppSettings.log_folder) unless File.exists?(AppSettings.log_folder)
 $logger=Logger.new("#{AppSettings.log_path}",'daily')
 $logger.level=Logger::INFO
 
 #mkdir
+
 
 data_validate_path=File.expand_path("./daily_data","#{AppSettings.resource_path}")
 Dir.mkdir(data_validate_path) unless File.exists?(data_validate_path)

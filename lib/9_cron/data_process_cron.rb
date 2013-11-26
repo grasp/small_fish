@@ -5,10 +5,14 @@ require File.expand_path("../../1_data_collection/history_data/save_download_his
 require File.expand_path("../../1_data_collection/daily_data/save_daily_data_into_one_text.rb",__FILE__)
 require File.expand_path("../../22_data_validate/check_date_consistent.rb",__FILE__)
 
+#在此之前， price cron已经保证了数据的一致性和完整性，在这里不再验证
+#如果程序到达了这里，说面前面的检查和数据修复已经完成了
+#这里只要完成自己这个层面的数据完整性检查和处理
 def append_daily_data_cron
 
 	#验证数据一致性
 	#{"2013-11-21"=>2292, "2013-11-01"=>18},已经按照日期排序
+	
 	counter_hash=check_data_process_file_consistent_for_last_line
     $logger.info("processed file , counter hash=#{counter_hash}")
 

@@ -42,20 +42,22 @@ def append_all_history_data
 end
 
 def append_all_history_data_for_folder(date_folder)
-   count=0
-
+    count=0
+    $logger.info("start to append history data for #{date_folder}")
 	$all_stock_list.keys.each do |symbol|
 	  count+=1
-	  puts "#{symbol},count=#{count}"
+
 	  
-	  source_file=File.expand_path("./history_daily_data_3/#{date_folder}/#{symbol}.txt","#{AppSettings.resource_path}")
+	  source_file=File.expand_path("./#{date_folder}/#{symbol}.txt","#{AppSettings.resource_path}")
 	  target_file=File.expand_path("./history_daily_data/#{symbol}.txt","#{AppSettings.resource_path}")
 	  #TBD append之前，需要确认是否能够append,或者只append需要的数据，或者是否需要删除
 
 		if File.exists?(source_file) && File.exists?(target_file)
-          append_history_data("history_daily_data_3/#{date_folder}",symbol)
+          append_history_data("#{date_folder}",symbol)
+          puts "#{symbol},count=#{count}"
         end
     end
+    $logger.info("append history data done on #{Time.now}")
 end
 
 

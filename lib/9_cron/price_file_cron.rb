@@ -3,6 +3,8 @@ require File.expand_path("../../0_common/common.rb",__FILE__)
 require File.expand_path("../../21_data_fix/delete_last_line.rb",__FILE__)
 require File.expand_path("../../1_data_collection/history_data/save_download_history_data_from_yahoo.rb",__FILE__)
 require File.expand_path("../../1_data_collection/daily_data/save_daily_data_into_one_text.rb",__FILE__)
+require File.expand_path("../../1_data_collection/history_data/append_history_data.rb",__FILE__)
+
 require File.expand_path("../../22_data_validate/check_date_consistent.rb",__FILE__)
 
 def price_file_data_fix_and_download
@@ -42,23 +44,50 @@ else
   max_diff_day=1
 end
 
+#如果相差一天，但是今天的时间是早上9点前，那么数据已经是最新的了，我们什么都做不了
+if diff_day==max_diff_day && ((0..15).include?(Time.now.hour))
+ $logger.info("we can do nothing as raw price data is already latest, and need wait new data coming ")
+ sleep 600 #休息10分钟后，继续看看是否需要数据下载	
+ return 
+end
+
+
 $logger.info("get diff day =#{diff_day}, max_diff_day=#{max_diff_day} on time=#{Time.now} for last date=#{last_line_date}")
-if diff_day >=max_diff_day #&& not ((7..15).include?(Time.now.hour))
-	$logger.error("start download history data on #{Time.now}")
+if diff_day >max_diff_day #&& not ((7..15).include?(Time.now.hour))
+	#如果已经下载了，就不需要下载了
+	target_folder=File.expand_path("./history_daily_data_3/#{today}","#{AppSettings.resource_path}")
+	if File.exists?(target_folder)
+		f_counter=0
+		Dir.new(target_folder).each do  |file|
+          f_counter+=1
+		end
+   if f_counter<2300 #说明已经下载过了
+	$logger.info("start download history data on #{Time.now}")
 	#下载历史数据，因为不在实时下载的时间窗口内了,下载一个月内的数据
 	download_all_symbol_into_history_data("./history_daily_data_3/#{today}",30)
-    $logger.error("end download history data on #{Time.now}")
+    $logger.info("end download history data on #{Time.now}")
 	#append 历史数据
 	append_all_history_data_for_folder("./history_daily_data_3/#{today}")
-	 $logger.error("append history data  done on #{Time.now}")
-else
-	#下载实时数据
-	$logger.error("start download daily data on #{Time.now}")
-    save_daily_data_into_one_text(today)
-    $logger.error("end download daily data on #{Time.now}")
-    #append实时数据
-    append_daily_data_into_history(today)
-    $logger.error("end append daily data on #{Time.now}")
+	$logger.info("append history data  done on #{Time.now}")
+    else
+    #说明此时还没有append
+    append_all_history_data_for_folder("./history_daily_data_3/#{today}")
+    $logger.info("history data 3 already downloaded")
+   end
+end
+
+else #但是绝对不可以在交易时间下载实时数据，否则下载的就不是当日的收盘数据
+    unless (0..15).include?(Time.now.hour)
+	  #下载实时数据
+	  $logger.info("start download daily data on #{Time.now}")
+      save_daily_data_into_one_text(today)
+      $logger.info("end download daily data on #{Time.now}")
+      #append实时数据
+      append_daily_data_into_history(today)
+      $logger.info("end append daily data on #{Time.now}")
+    else
+       $logger.info("it is not the right time to download daily data! #{Time.now}")
+    end
 end
 
 #如果还是失败呢？
@@ -68,4 +97,5 @@ end
 
 if $0==__FILE__
 	price_file_data_fix_and_download
+	new_counter_array=check_price_file_consistent
 end
