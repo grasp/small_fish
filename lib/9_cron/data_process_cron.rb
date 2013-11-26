@@ -12,7 +12,6 @@ def append_daily_data_cron
 
 	#验证数据一致性
 	#{"2013-11-21"=>2292, "2013-11-01"=>18},已经按照日期排序
-	
 	counter_hash=check_data_process_file_consistent_for_last_line
     $logger.info("processed file , counter hash=#{counter_hash}")
 

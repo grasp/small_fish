@@ -12,6 +12,7 @@ def validate_daily_date(date)
   $logger.info("daily data contents.size=#{contents.size},unconsistent count=#{count}")
 
   if (contents.size==2471) && (count < 300)
+      $logger.error("validate daily data pass")
     return true 
   else
     File.delete(source_file)#!!!!delete the source_file

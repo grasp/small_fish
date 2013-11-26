@@ -29,7 +29,7 @@ def check_data_process_file_consistent_for_last_line
 	$all_stock_list.keys.each do |symbol|
 	  source_file=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
 	  if File.exists?(source_file) && File.stat(source_file).size>0
-	  	 last_date=get_last_date_on_daily_k(symbol).to_s
+	  	 last_date=get_last_date_on_file(source_file)
 	  	 counter_hash[last_date]+=1
 	  end
 	end
@@ -45,7 +45,8 @@ def check_signal_gen_file_consistent_for_last_line
 	$all_stock_list.keys.each do |symbol|
 	  source_file=File.expand_path("./signal/#{symbol}.txt","#{AppSettings.resource_path}")
 	  if File.exists?(source_file) && File.stat(source_file).size>0
-	  	 last_date=get_last_date_on_daily_k(symbol).to_s
+	  	 #last_date=get_last_date_on_daily_k(symbol).to_s
+	  	 last_date=get_last_date_on_file(source_file)
 	  	 counter_hash[last_date]+=1
 	  end
 	end

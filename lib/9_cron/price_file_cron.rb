@@ -3,9 +3,10 @@ require File.expand_path("../../0_common/common.rb",__FILE__)
 require File.expand_path("../../21_data_fix/delete_last_line.rb",__FILE__)
 require File.expand_path("../../1_data_collection/history_data/save_download_history_data_from_yahoo.rb",__FILE__)
 require File.expand_path("../../1_data_collection/daily_data/save_daily_data_into_one_text.rb",__FILE__)
+require File.expand_path("../../1_data_collection/daily_data/append_daily_data_to_history.rb",__FILE__)
 require File.expand_path("../../1_data_collection/history_data/append_history_data.rb",__FILE__)
-
 require File.expand_path("../../22_data_validate/check_date_consistent.rb",__FILE__)
+require File.expand_path("../../22_data_validate/validate_daily_data.rb",__FILE__)
 
 def price_file_data_fix_and_download
 	start=Time.now
@@ -43,7 +44,7 @@ elsif Time.now.sunday?
 else
   max_diff_day=1
 end
-
+$logger.info("get diff day =#{diff_day}, max_diff_day=#{max_diff_day} on time=#{Time.now} for last date=#{last_line_date}")
 #如果相差一天，但是今天的时间是早上9点前，那么数据已经是最新的了，我们什么都做不了
 if diff_day==max_diff_day && ((0..15).include?(Time.now.hour))
  $logger.info("we can do nothing as raw price data is already latest, and need wait new data coming ")
@@ -51,8 +52,7 @@ if diff_day==max_diff_day && ((0..15).include?(Time.now.hour))
  return 
 end
 
-
-$logger.info("get diff day =#{diff_day}, max_diff_day=#{max_diff_day} on time=#{Time.now} for last date=#{last_line_date}")
+#下面为日期数据有差别
 if diff_day >max_diff_day #&& not ((7..15).include?(Time.now.hour))
 	#如果已经下载了，就不需要下载了
 	target_folder=File.expand_path("./history_daily_data_3/#{today}","#{AppSettings.resource_path}")
@@ -80,11 +80,26 @@ else #但是绝对不可以在交易时间下载实时数据，否则下载的�
     unless (0..15).include?(Time.now.hour)
 	  #下载实时数据
 	  $logger.info("start download daily data on #{Time.now}")
-      save_daily_data_into_one_text(today)
-      $logger.info("end download daily data on #{Time.now}")
-      #append实时数据
-      append_daily_data_into_history(today)
-      $logger.info("end append daily data on #{Time.now}")
+	  #如果已经下载，就不需要下载了，但是验证要通过
+	  #先验证每日数据，如果验证不通过，就删除下载的文件，重新下载
+	  validate_daily_date(today)
+
+	  source_file=File.expand_path("./daily_data/#{today}.txt","#{AppSettings.resource_path}")
+	  unless File.exists?(source_file)
+        save_daily_data_into_one_text(today)
+
+        $logger.info("end download daily data on #{Time.now}")
+        #append实时数据
+       
+      else
+      	if diff_day.to_i>0 #如果有时间差就要附加
+    	  $logger.info("start append daily data on #{Time.now}")
+    	  append_daily_data_into_history(today) 
+          $logger.info("end append daily data on #{Time.now}")
+          else
+           $logger.info("diff_day=#{diff_day}, no need to append daily data #{today}.txt")
+        end
+      end
     else
        $logger.info("it is not the right time to download daily data! #{Time.now}")
     end
