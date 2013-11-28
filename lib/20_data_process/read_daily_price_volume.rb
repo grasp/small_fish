@@ -17,6 +17,8 @@ def get_price_hash_from_history(symbol)
   daily_k_array.reverse.each do |line|	
   next if line.nil?   
  	daily_data = line.split("#")
+  next if daily_data[1].to_f==0.0
+  next if daily_data[5].to_f==0.0
   next if daily_data.size<3
 
  	#成交量为0的我们忽略不计，已经在前面处理掉了

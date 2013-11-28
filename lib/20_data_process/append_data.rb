@@ -28,7 +28,7 @@ def append_processed_data(symbol,price_array,back_day_array)
     processed_data_file<<"#"+result_macd_array.to_s
     processed_data_file<<"#"+low_price_array.to_s
     processed_data_file<<"#"+high_price_array.to_s
-    processed_data_file<<"#"+volume_array.to_s
+    processed_data_file<<"#"+volume_array.to_s     
     processed_data_file<<"\n"
 
 end
@@ -46,7 +46,8 @@ def get_diff_date(price_array,symbol)
   back_day_array=[]
 
   0.upto(price_array.size).each do |index|
-
+    next if price_array[index].nil?
+    #已经最新了，就不进行更行
     if price_array[index][0]==last_date
       break
     else

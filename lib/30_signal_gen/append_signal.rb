@@ -65,7 +65,7 @@ def get_diff_date_signal(price_array,symbol)
   back_day_array=[]
 
   0.upto(price_array.size).each do |index|
-
+    next if price_array[index].nil?
     if price_array[index][0]==last_date
       break
     else

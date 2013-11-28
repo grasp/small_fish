@@ -8,6 +8,11 @@ require File.expand_path("../../1_data_collection/history_data/append_history_da
 require File.expand_path("../../22_data_validate/check_date_consistent.rb",__FILE__)
 require File.expand_path("../../22_data_validate/validate_daily_data.rb",__FILE__)
 
+require File.expand_path("../../20_data_process/append_data.rb",__FILE__)
+
+require File.expand_path("../../30_signal_gen/append_signal.rb",__FILE__)
+
+
 def price_file_data_fix_and_download
 	start=Time.now
 	#[["2013-11-22", 514], ["2013-11-21", 1919], ["2013-11-15", 1], ["2013-11-01", 25
@@ -56,6 +61,8 @@ end
 if diff_day >max_diff_day #&& not ((7..15).include?(Time.now.hour))
 	#如果已经下载了，就不需要下载了
 	target_folder=File.expand_path("./history_daily_data_3/#{today}","#{AppSettings.resource_path}")
+    Dir.mkdir(target_folder) unless File.exists?(target_folder)
+
 	if File.exists?(target_folder)
 		f_counter=0
 		Dir.new(target_folder).each do  |file|
@@ -110,7 +117,27 @@ puts "cost time=#{Time.now-start}"
 
 end
 
+
+
 if $0==__FILE__
+	$logger.info("start on today's data download and update ! #{Time.now}")
+	start=Time.now
 	price_file_data_fix_and_download
 	new_counter_array=check_price_file_consistent
+
+	#数据处理
+	counter_hash=check_data_process_file_consistent_for_last_line
+    $logger.info("processed file , counter hash=#{counter_hash}")
+    
+    append_all_data_process
+
+    #信号处理
+
+    counter_hash=check_signal_gen_file_consistent_for_last_line
+    $logger.info("signal file , signal counter hash=#{counter_hash}")
+    
+    append_all_signal
+    $logger.info("finish on today's data download and update ! #{Time.now}")
+    puts "total cost time=#{Time.now-start}"
+
 end
