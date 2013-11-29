@@ -2,6 +2,8 @@
 require File.expand_path("../../../init/small_fish_init.rb",__FILE__)
 require 'json'
 
+
+
 def statistic_for_win_lost(folder,win_percent,win_total_number,lost_percent,lost_total_number)
 
 	statistic_folder=File.expand_path("./win_lost_statistic/#{folder}","#{AppSettings.resource_path}")
@@ -41,7 +43,7 @@ end
 
 if $0==__FILE__
 	start=Time.now
-    folder="percent_1_num_1_days"
+    folder="percent_3_num_7_days"
 	statistic_for_win_lost(folder,0.9,10,0.9,10)
 	puts "cost=#{Time.now-start}"
 end

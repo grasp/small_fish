@@ -28,5 +28,7 @@ def append_daily_data_cron
 end
 
 if $0==__FILE__
-	append_daily_data_cron
+	start=Time.now
+    append_daily_data_cron
+    puts "cost time=#{Time.now-start}"
 end

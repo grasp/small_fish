@@ -1,5 +1,5 @@
  require File.expand_path("../../../init/small_fish_init.rb",__FILE__)
-
+  require 'date'
  #计算day1和day2相差的天数，可以得到我们的backdays， 为计算某个区间的盈利测试
 def get_diff_day(day1,day2)
      
@@ -53,6 +53,19 @@ def get_last_signal_date(symbol)
 end
 
 
+def get_all_work_day
+
+
+#(11..12).each do |month|
+30.downto(1).each do |i|
+  d = Date.new(2013, 11, -i)
+ # d -= (d.wday - 5) % 7
+  puts d
+end
+end
+
+
 if $0==__FILE__
-	get_last_date_on_daily_k("000010.sz")
+	#get_last_date_on_daily_k("000010.sz")
+  get_all_work_day
 end

@@ -50,11 +50,12 @@ else
   max_diff_day=1
 end
 $logger.info("get diff day =#{diff_day}, max_diff_day=#{max_diff_day} on time=#{Time.now} for last date=#{last_line_date}")
+
 #如果相差一天，但是今天的时间是早上9点前，那么数据已经是最新的了，我们什么都做不了
 if diff_day==max_diff_day && ((0..15).include?(Time.now.hour))
- $logger.info("we can do nothing as raw price data is already latest, and need wait new data coming ")
+ $logger.info("we can do nothing as raw price data is already latest wait 10min, and need wait new data coming ")
  sleep 600 #休息10分钟后，继续看看是否需要数据下载	
- return 
+ #return 
 end
 
 #下面为日期数据有差别
@@ -68,7 +69,7 @@ if diff_day >max_diff_day #&& not ((7..15).include?(Time.now.hour))
 		Dir.new(target_folder).each do  |file|
           f_counter+=1
 		end
-   if f_counter<2300 #说明已经下载过了
+if f_counter<2300 #说明已经下载过了
 	$logger.info("start download history data on #{Time.now}")
 	#下载历史数据，因为不在实时下载的时间窗口内了,下载一个月内的数据
 	download_all_symbol_into_history_data("./history_daily_data_3/#{today}",30)
@@ -94,18 +95,17 @@ else #但是绝对不可以在交易时间下载实时数据，否则下载的�
 	  source_file=File.expand_path("./daily_data/#{today}.txt","#{AppSettings.resource_path}")
 	  unless File.exists?(source_file)
         save_daily_data_into_one_text(today)
-
         $logger.info("end download daily data on #{Time.now}")
         #append实时数据
        
       else
-      	if diff_day.to_i>0 #如果有时间差就要附加
+    if diff_day.to_i>0 #如果有时间差就要附加
     	  $logger.info("start append daily data on #{Time.now}")
     	  append_daily_data_into_history(today) 
-          $logger.info("end append daily data on #{Time.now}")
-          else
-           $logger.info("diff_day=#{diff_day}, no need to append daily data #{today}.txt")
-        end
+        $logger.info("end append daily data on #{Time.now}")
+    else
+        $logger.info("diff_day=#{diff_day}, no need to append daily data #{today}.txt")
+    end
       end
     else
        $logger.info("it is not the right time to download daily data! #{Time.now}")
@@ -120,6 +120,7 @@ end
 
 
 if $0==__FILE__
+	
 	$logger.info("start on today's data download and update ! #{Time.now}")
 	start=Time.now
 	price_file_data_fix_and_download

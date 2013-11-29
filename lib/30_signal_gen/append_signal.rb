@@ -79,6 +79,7 @@ end
 
 def append_all_signal
     count=0
+    $logger.info("start append all signal")
     $all_stock_list.keys.each do |symbol|
         count+=1
      data_path=File.expand_path("./signal/#{symbol}.txt","#{AppSettings.resource_path}")
@@ -89,6 +90,7 @@ def append_all_signal
     puts "#{symbol},count=#{count}"
 end
     end
+     $logger.info("end append all signal")
 end
 
 

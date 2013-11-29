@@ -72,6 +72,7 @@ end
 
 def append_all_data_process
     count=0
+    $logger.info("start append all data process")
     $all_stock_list.keys.each do |symbol|
      target_file=File.expand_path("./data_process/#{symbol}.txt","#{AppSettings.resource_path}")
      next unless File.exists?(target_file) #如果原来没有存在，附加就会失败TBD
@@ -81,6 +82,7 @@ def append_all_data_process
         # price_hash=get_price_hash_from_history(symbol)
          append_diff_data(symbol)
     end
+    $logger.info("end append all data process")
 end
 
 

@@ -1,5 +1,6 @@
 require File.expand_path("../../20_data_process/read_daily_price_volume.rb",__FILE__)
 require File.expand_path("../../30_signal_gen/price_will_up_down_signal.rb",__FILE__)
+
 def calculate_file_win_with_close(will_key,date,percent,count)
 
   file=File.expand_path("./buy_record/#{will_key}/#{date}_percent_#{percent}_count_#{count}.txt","#{AppSettings.resource_path}")
@@ -33,9 +34,7 @@ def calculate_file_win_with_close(will_key,date,percent,count)
       true_counter+=1
     else
       false_counter+=1
-    end
-
-       
+    end       
   end
 
    puts "percent on #{date} = #{true_counter.to_f/(true_counter+false_counter)}"

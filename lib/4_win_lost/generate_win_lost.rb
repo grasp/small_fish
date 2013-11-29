@@ -85,7 +85,7 @@ end
 
 if $0==__FILE__
 
-genereate_all_symbol_win_lost(0.01,1)
+genereate_all_symbol_win_lost(0.03,7)
 #generate_all_zuhe
 
 end
