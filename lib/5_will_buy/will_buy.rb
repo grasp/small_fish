@@ -1,11 +1,16 @@
 require File.expand_path("../../../init/small_fish_init.rb",__FILE__)
 require 'json'
 
-def will_buy(folder,symbol,win_percent,lost_percent,win_counter,lost_counter)
+#def will_buy(folder,symbol,win_percent,lost_percent,win_counter,lost_counter)
 
-   statistic_file=File.expand_path("./win_lost_statistic/#{folder}/#{symbol}.txt","#{AppSettings.resource_path}")
-   will_buy_path=File.expand_path("./will_buy/#{folder}/#{symbol}.txt","#{AppSettings.resource_path}")
+def will_buy(symbol,algorithim_path,date,statistic_end_date,profit_percent,duration,win_count,win_percent)
+   folder="percent_#{profit_percent}_num_#{duration}_days"
+   folder2="percent_#{win_percent}_count_#{win_count}"
+   will_buy_folder=File.expand_path("./folder/end_date_#{statistic_end_date}/#{folder2}/#{symbol}.txt",algorithim_path)
 
+   statistic_file=File.expand_path("./folder/end_date_#{statistic_end_date}/statistic/#{symbol}.txt",algorithim_path)
+   #will_buy_path=File.expand_path("./will_buy/#{folder}/#{symbol}.txt","#{AppSettings.resource_path}")
+   will_buy_path=File.expand_path("./folder/end_date_#{statistic_end_date}/statistic/#{symbol}.txt",algorithim_path)
    will_buy_file=File.new(will_buy_path,"w+")
 
   if File.exists?(statistic_file)
