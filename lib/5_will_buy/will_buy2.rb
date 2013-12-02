@@ -45,8 +45,8 @@ if $0==__FILE__
  statistic_end_date="2012-12-31"
  profit_percent=3
  duration=7
- win_count=10
- win_percent=95
+ win_count=25
+ win_percent=99
  lost_percent=90
  lost_counter=10
 

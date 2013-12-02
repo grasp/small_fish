@@ -92,8 +92,8 @@ if $0==__FILE__
  statistic_end_date="2012-12-31"
  profit_percent=3
  duration=7
- win_count=10
- win_percent=95
+ win_count=25
+ win_percent=99
 
  report_buy_list(algorithim_path,date,statistic_end_date,profit_percent,duration,win_count,win_percent)
 end
