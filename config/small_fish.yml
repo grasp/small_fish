@@ -10,6 +10,8 @@ raw_data: "e:/raw_data"
 stock_list_name: "stock_list/stock_table_2013_10_01.txt"
 log_path: "e:/log/small_fish.log"
 log_folder: "e:/log"
+daily_k_one_day_folder: "e:/daily_k_one_day"
+
 macd_1_day: 1
 macd_2_day: 2
 macd_3_day: 3
