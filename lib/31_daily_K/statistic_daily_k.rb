@@ -79,6 +79,11 @@ def statistic_for_all(folder)
   end
 end
 
+def statistic(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date)
+  
+  (daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date)
+end
+
 if $0==__FILE__
  start=Time.now
  #generate_win_lost_counter()

@@ -3,7 +3,7 @@
 然后自上而下的产生出报告
 
 报告也是按照上涨预期和统计取值的范围还有结束日期这些来进行分类
-
+==begin
  目录结构
  daily_k_one_day
   percent_3_num_7_days
@@ -14,7 +14,7 @@
         potential_buy
       statistic
   win_lost_history
-
+==end
 
 
 应该包含一下几个部分

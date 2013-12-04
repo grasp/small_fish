@@ -19,6 +19,23 @@ def generate_daily_k_signal_one_day(symbol)
    daily_k_file.close
 end
 
+def generate_daily_k_signal_on_target_folder(target_folder,symbol)
+    price_hash=get_price_hash_from_history(symbol)
+    daily_k_path=File.expand_path("./#{symbol}.txt",target_folder)
+    daily_k_file=File.new(daily_k_path,"w+")
+    
+    price_hash.each do |date,array|
+        next if array[0].to_f==0.0
+        next if array.size<3         
+        # puts  "#{win_percent},#{zheng_fu_percent},#{shang_ying_percent},#{xia_ying_percent}"
+         #puts zheng_fu_percent
+         daily_k_file<<date+"#"+generate_daily_k_signal_on_date(price_hash,date).to_s+"\n"
+    end
+
+   daily_k_file.close
+
+end
+
 def generate_daily_k_signal_on_date(price_hash,date)
 
         array=price_hash[date]
