@@ -1,5 +1,6 @@
 require File.expand_path("../../../init/small_fish_init.rb",__FILE__)
 require "./generate_daily_k_signal.rb"
+require "./statistic_daily_k.rb"
 require File.expand_path("../../4_win_lost/generate_win_lost2.rb",__FILE__)
 
 =begin
@@ -58,6 +59,7 @@ def init_daily_k_report(daily_k_path,profit_percent,during_days,win_percent,win_
   Dir.mkdir(end_date_folder) unless File.exists?(end_date_folder)  
   Dir.mkdir(one_statistic_folder) unless File.exists?(one_statistic_folder)
  
+  all_symbol_statistic(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date)
 
 
 end
