@@ -74,6 +74,7 @@ def init_buy_list(algorithim_path,date,statistic_end_date,profit_percent,duratio
 end
 
 def report_buy_list(algorithim_path,date,statistic_end_date,profit_percent,duration,win_count,win_percent)
+    
     folder=init_buy_list(algorithim_path,date,statistic_end_date,profit_percent,duration,win_count,win_percent)
     source_folder=File.expand_path("./#{folder}/#{date}.txt",algorithim_path)
     puts File.exists?(source_folder)
@@ -89,7 +90,7 @@ if $0==__FILE__
 
  algorithim_path=AppSettings.hun_dun
  date="2013-11-13"
- statistic_end_date="2012-12-31"
+ statistic_end_date="2013-09-30"
  profit_percent=3
  duration=7
  win_count=25

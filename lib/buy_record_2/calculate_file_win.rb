@@ -24,24 +24,24 @@ def calculate_file_win(buy_record_file,win_lost_history_folder,buy_record_folder
 end
 
 if $0==__FILE__
-	folder="percent_3_num_7_days"
+folder="percent_3_num_7_days"
 
  algorithim_path=AppSettings.hun_dun
  date="2013-11-13"
- statistic_end_date="2012-12-31"
+ statistic_end_date="2013-09-30"
  profit_percent=3
  duration=7
  win_count=25
  win_percent=99
 
-    profit_percent_folder=File.expand_path("./percent_#{profit_percent}_num_#{duration}_days",algorithim_path)
+ profit_percent_folder=File.expand_path("./percent_#{profit_percent}_num_#{duration}_days",algorithim_path)
 
-    win_lost_history_folder=File.expand_path("./win_lost_history",profit_percent_folder)
-    end_data_folder=File.expand_path("./end_date_#{statistic_end_date}",profit_percent_folder)
-    percent_and_count_folder=File.expand_path("./percent_#{win_percent}_count_#{win_count}",end_data_folder)
-    potential_buy=File.expand_path("./potential_buy",percent_and_count_folder)
-    buy_record_folder=File.expand_path("./buy_record",percent_and_count_folder)
-    puts "potential_buy=#{potential_buy}"
+ win_lost_history_folder=File.expand_path("./win_lost_history",profit_percent_folder)
+ end_data_folder=File.expand_path("./end_date_#{statistic_end_date}",profit_percent_folder)
+ percent_and_count_folder=File.expand_path("./percent_#{win_percent}_count_#{win_count}",end_data_folder)
+ potential_buy=File.expand_path("./potential_buy",percent_and_count_folder)
+ buy_record_folder=File.expand_path("./buy_record",percent_and_count_folder)
+ puts "potential_buy=#{potential_buy}"
 
 
 

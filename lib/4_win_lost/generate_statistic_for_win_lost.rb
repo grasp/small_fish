@@ -128,7 +128,8 @@ if $0==__FILE__
  start=Time.now
  algorithim_path=AppSettings.hun_dun
  date="2013-11-13"
- statistic_end_date="2012-12-31"
+ #statistic_end_date="2012-12-31"
+ statistic_end_date="2013-09-30"
  profit_percent=3
  during_day=7
  #win_count=10

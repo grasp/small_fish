@@ -22,7 +22,11 @@ require File.expand_path("../../4_win_lost/generate_win_lost2.rb",__FILE__)
 def init_daily_k_report(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date)
 
 	#daily_k_one_day_folder=AppSettings.daily_k_one_day
+  report_folder=File.expand_path("./report",daily_k_path)
+  Dir.mkdir(report_folder) unless File.exists?(report_folder)
+
 	Dir.mkdir(daily_k_path) unless File.exists?(daily_k_path)
+
 	profit_duration_folder=File.expand_path("./percent_#{profit_percent}_num_#{during_days}_days",daily_k_path)
 	signal_folder=File.expand_path("./signal",profit_duration_folder)
 	end_date_folder=File.expand_path("./end_date_#{statistic_end_date}",profit_duration_folder)
@@ -80,26 +84,38 @@ def report_one_day_daily_k
 	
 end
 
-if $0==__FILE__
 
+def strategy_8
    daily_k_path=AppSettings.daily_k_one_day_folder
-   profit_percent=3
-   during_days=7
-   win_percent=60
+   profit_percent=1
+   during_days=5
+   win_percent=70
    win_count=100
    statistic_end_date="2013-12-31"
    init_daily_k_report(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date)
 
-   30.downto(1).each do |i|
-  date = Date.new(2013, 1, -i)
+  report_percent=File.expand_path("./report/percent_#{profit_percent}_num_#{during_days}days_win_#{win_percent}_count_#{win_count}.txt",daily_k_path)
+  report_percent_file=File.new(report_percent,"a+")
+  report_percent_file<<"start calculate on #{Time.now}\n"
+  report_percent_file.close
+
+3.upto(5).each do |j|
+30.downto(1).each do |i|
+  date = Date.new(2013, j, -i)
  # d -= (d.wday - 5) % 7
  # puts date
   unless (date.wday==6 || date.wday==0)
-  	puts date
-   # scan_signal_on_date("percent_3_num_7_days",could_buy_array,date.to_s)
-   buy_record(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date,date.to_s)
-   daily_K_calcuate_win(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date,date.to_s)
+    puts date
+    # scan_signal_on_date("percent_3_num_7_days",could_buy_array,date.to_s)
+    buy_record(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date,date.to_s)
+    daily_K_calcuate_win(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date,date.to_s)
   end
 end
+end
+end
+
+if $0==__FILE__
+
+ strategy_8
 
 end
