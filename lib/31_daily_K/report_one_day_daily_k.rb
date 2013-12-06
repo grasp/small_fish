@@ -3,6 +3,7 @@ require "./generate_daily_k_signal.rb"
 require "./statistic_daily_k.rb"
 require "./statistic_for_all.rb"
 require "./buy_record.rb"
+require "./calculate_win.rb"
 require File.expand_path("../../4_win_lost/generate_win_lost2.rb",__FILE__)
 
 =begin
@@ -70,7 +71,8 @@ def init_daily_k_report(daily_k_path,profit_percent,during_days,win_percent,win_
  Dir.mkdir(win_percent_folder) unless File.exists?(win_percent_folder)
  Dir.mkdir(buy_record_folder) unless File.exists?(buy_record_folder)
 
- buy_record(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date,"2013-05-13")
+ #buy_record(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date,"2013-05-09")
+ #daily_K_calcuate_win(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date,"2013-05-09")
 
 end
 
@@ -83,9 +85,21 @@ if $0==__FILE__
    daily_k_path=AppSettings.daily_k_one_day_folder
    profit_percent=3
    during_days=7
-   win_percent=65
+   win_percent=60
    win_count=100
    statistic_end_date="2013-12-31"
    init_daily_k_report(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date)
+
+   30.downto(1).each do |i|
+  date = Date.new(2013, 1, -i)
+ # d -= (d.wday - 5) % 7
+ # puts date
+  unless (date.wday==6 || date.wday==0)
+  	puts date
+   # scan_signal_on_date("percent_3_num_7_days",could_buy_array,date.to_s)
+   buy_record(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date,date.to_s)
+   daily_K_calcuate_win(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date,date.to_s)
+  end
+end
 
 end

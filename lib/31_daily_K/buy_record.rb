@@ -42,8 +42,13 @@ def buy_record(daily_k_path,profit_percent,during_days,win_percent,win_count,sta
      lost_target_file.close
 
       if File.stat(target_file_path).size==0
-        puts "no any buy record , delete file!!"  
+        puts "no any buy record , delete target_file_path file!!"  
         File.delete(target_file_path) 
+     end
+
+           if File.stat(lost_target_file).size==0
+        puts "no any buy record , delete lost_target_file file!!"  
+        File.delete(lost_target_file) 
      end
 end
 
