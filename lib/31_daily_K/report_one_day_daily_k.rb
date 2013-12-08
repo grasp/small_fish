@@ -87,9 +87,9 @@ end
 
 def strategy_8
    daily_k_path=AppSettings.daily_k_one_day_folder
-   profit_percent=1
+   profit_percent=2
    during_days=5
-   win_percent=70
+   win_percent=65
    win_count=100
    statistic_end_date="2013-12-31"
    init_daily_k_report(daily_k_path,profit_percent,during_days,win_percent,win_count,statistic_end_date)
@@ -99,7 +99,7 @@ def strategy_8
   report_percent_file<<"start calculate on #{Time.now}\n"
   report_percent_file.close
 
-3.upto(5).each do |j|
+3.upto(6).each do |j|
 30.downto(1).each do |i|
   date = Date.new(2013, j, -i)
  # d -= (d.wday - 5) % 7

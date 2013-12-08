@@ -12,6 +12,9 @@ log_path: "e:/log/small_fish.log"
 log_folder: "e:/log"
 daily_k_one_day_folder: "e:/daily_k_one_day"
 
+single_signal: "e:/single_signal"
+win_lost: "e:/win_lost"
+
 macd_1_day: 1
 macd_2_day: 2
 macd_3_day: 3

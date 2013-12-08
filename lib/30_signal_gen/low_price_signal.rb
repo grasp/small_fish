@@ -8,14 +8,15 @@ def low_price_signal(full_low_price_array,full_price_array,back_day)
 	price_array=full_price_array[back_day]
 	#print low_price_array.to_s+"\n"
 	#print "price_array="+price_array.to_s+"\n"
-
-    low_price_signal_hash["lowest_5_day"]= (low_price_array[1][4].to_f > price_array[1][3].to_f) 
-    low_price_signal_hash["lowest_10_day"]= (low_price_array[1][5].to_f > price_array[1][3].to_f) 
-    low_price_signal_hash["lowest_20_day"]= (low_price_array[1][6].to_f > price_array[1][3].to_f)
-    low_price_signal_hash["lowest_30_day"]= (low_price_array[1][7].to_f > price_array[1][3].to_f) 
-    low_price_signal_hash["lowest_60_day"]= (low_price_array[1][8].to_f > price_array[1][3].to_f) 
-    low_price_signal_hash["lowest_100_day"]= (low_price_array[1][9].to_f > price_array[1][3].to_f) 
-    low_price_signal_hash["lowest_120_day"]= (low_price_array[1][10].to_f > price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_3_day"]= (low_price_array[1][2].to_f >= price_array[1][2].to_f) 
+    low_price_signal_hash["lowest_4_day"]= (low_price_array[1][3].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_5_day"]= (low_price_array[1][4].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_10_day"]= (low_price_array[1][5].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_20_day"]= (low_price_array[1][6].to_f >= price_array[1][3].to_f)
+    low_price_signal_hash["lowest_30_day"]= (low_price_array[1][7].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_60_day"]= (low_price_array[1][8].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_100_day"]= (low_price_array[1][9].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_120_day"]= (low_price_array[1][10].to_f >= price_array[1][3].to_f) 
 	return low_price_signal_hash
 end
 
@@ -24,14 +25,15 @@ def generate_low_price_signal_on_backday(low_price_array,full_price_array, back_
     low_price_signal_hash=Hash.new
 
     price_array=full_price_array[back_day]
-
-    low_price_signal_hash["lowest_5_day"]= (low_price_array[1][4].to_f > price_array[1][3].to_f) 
-    low_price_signal_hash["lowest_10_day"]= (low_price_array[1][5].to_f > price_array[1][3].to_f) 
-    low_price_signal_hash["lowest_20_day"]= (low_price_array[1][6].to_f > price_array[1][3].to_f)
-    low_price_signal_hash["lowest_30_day"]= (low_price_array[1][7].to_f > price_array[1][3].to_f) 
-    low_price_signal_hash["lowest_60_day"]= (low_price_array[1][8].to_f > price_array[1][3].to_f) 
-    low_price_signal_hash["lowest_100_day"]= (low_price_array[1][9].to_f > price_array[1][3].to_f) 
-    low_price_signal_hash["lowest_120_day"]= (low_price_array[1][10].to_f > price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_3_day"]= (low_price_array[1][2].to_f >= price_array[1][2].to_f) 
+    low_price_signal_hash["lowest_4_day"]= (low_price_array[1][3].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_5_day"]= (low_price_array[1][4].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_10_day"]= (low_price_array[1][5].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_20_day"]= (low_price_array[1][6].to_f >= price_array[1][3].to_f)
+    low_price_signal_hash["lowest_30_day"]= (low_price_array[1][7].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_60_day"]= (low_price_array[1][8].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_100_day"]= (low_price_array[1][9].to_f >= price_array[1][3].to_f) 
+    low_price_signal_hash["lowest_120_day"]= (low_price_array[1][10].to_f >= price_array[1][3].to_f) 
     return low_price_signal_hash
 end
 
