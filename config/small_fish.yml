@@ -13,6 +13,7 @@ log_folder: "e:/log"
 daily_k_one_day_folder: "e:/daily_k_one_day"
 
 single_signal: "e:/single_signal"
+single_signal_statistic: "e:/single_signal_statistic"
 win_lost: "e:/win_lost"
 
 macd_1_day: 1
