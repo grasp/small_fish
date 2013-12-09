@@ -1,21 +1,27 @@
  require File.expand_path("../../../init/small_fish_init.rb",__FILE__)
  require File.expand_path("../0_single_signal_gen/highest_price_signal.rb")
+ require File.expand_path("../0_single_signal_gen/lowest_price_signal.rb")
+ require File.expand_path("../0_single_signal_gen/open_signal.rb")
+ require File.expand_path("../0_single_signal_gen/sma_signal.rb")
+ require File.expand_path("../0_single_signal_gen/volume_signal.rb")
+ require File.expand_path("../0_win_lost/win_lost.rb")
 
-def init_single_signal
+
+def init_report_single_signal
 
 	Dir.mkdir(AppSettings.single_signal) unless File.exists?(AppSettings.single_signal)
-	#signal_name_folder=File.expand_path(signal_name,AppSettings.single_signal)
-	#Dir.mkdir(signal_name_folder) unless File.exists?(signal_name_folder)
-    init_generate_high_price_signal
-    #generate_highest_price_signal
 
-    $all_stock_list.keys.each do |symbol|
-    	#unless File.exists?(File.expand_path("#{symbol}.txt"),signal_name_folder)
-    	#	generate_single_signal_name()
-    	#end
-    end
+    generate_high_price_signal_for_all_symbol(false)
+    generate_low_price_signal_for_all_symbol(false)
+    generate_open_signal_for_all_symbol(false)  
+    generate_sma_signal_for_all_symbol(false)
+    generate_volume_signal_for_all_symbol(false)
+    
+    sell_strategy="buy_by_close_sell_by_close"
+    regeneration_flag=true
 
-
+    init_win_lost
+    generate_all_percent_number_day_zuhe(sell_strategy,regeneration_flag)
 
 end
 
@@ -25,5 +31,5 @@ end
  end
 
  if $0==__FILE__
- 	init_single_signal
+ 	init_report_single_signal
  end
