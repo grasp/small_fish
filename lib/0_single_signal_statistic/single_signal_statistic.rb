@@ -30,23 +30,27 @@ def single_signal_statistic(end_date,sell_strategy)
   			win_lost_signal_file=""
   			target_statistic_file=""
 
-
-
   		end
   	end
   end
+end
+end
+
+
+ def statistic_by_file(signal_source,win_lost_file,target_statitic_file)
+
  end
-
-
-
-
 
 
 #为每一个 sell_strategy 生成统计
 
-end
+#end
 
 if $0==__FILE__
+    signal_source_file="e:\single_signal\close_equal_high\000009.sz.txt"
+  	win_lost_signal_file="e:\win_lost\percent_1_num_7_days\buy_by_close_sell_by_close\000009.sz.txt"
+  	target_statistic_file="e:\single_signal_statistic\2013-12-31\close_equal_high\percent_1_num_7_days\buy_by_close_sell_by_close\000009.sz.txt"
 
-	single_signal_statistic("2013-12-31","buy_by_close_sell_by_close")
+	#single_signal_statistic("2013-12-31","buy_by_close_sell_by_close")
+	statistic_by_file(signal_source_file,win_lost_signal_file,target_statistic_file)
 end
